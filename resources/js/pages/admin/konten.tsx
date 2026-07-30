@@ -1,11 +1,12 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { Pencil, Plus, Search, Trash2, X } from 'lucide-react';
+import { Pencil, Plus, Search, Trash2, X, Image as ImageIcon, FileText as PdfIcon, Calendar as CalendarIcon, MapPin as MapPinIcon, Globe as GlobeIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import axios from 'axios';
 
 interface KontenItem {
     id: number;
@@ -16,6 +17,13 @@ interface KontenItem {
     created_at: string;
     admin?: { id: number; name: string } | null;
     konten?: string;
+    gambar_utama?: string | null;
+    lampiran_pdf?: string | null;
+    meta_description?: string | null;
+    is_featured?: boolean | number;
+    kategori?: string;
+    event_tanggal?: string | null;
+    event_lokasi?: string | null;
 }
 
 interface Paginator<T> {
@@ -40,15 +48,42 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClose: () => void }) {
     const isEdit = editData !== null;
+    
     const form = useForm({
-        judul:  editData?.judul  ?? '',
-        konten: editData?.konten ?? '',
-        tipe:   editData?.tipe   ?? 'berita',
-        status: editData?.status ?? 'draft',
+        judul:            editData?.judul            ?? '',
+        konten:           editData?.konten           ?? '',
+        tipe:             editData?.tipe             ?? 'berita',
+        status:           editData?.status           ?? 'draft',
+        gambar_utama:     null as File | null,
+        lampiran_pdf:     null as File | null,
+        meta_description: editData?.meta_description ?? '',
+        is_featured:      editData?.is_featured ? true : false,
+        kategori:         editData?.kategori         ?? 'Umum',
+        event_tanggal:    editData?.event_tanggal    ?? '',
+        event_lokasi:     editData?.event_lokasi     ?? '',
     });
+
+    const [imagePreview, setImagePreview] = useState<string | null>(
+        editData?.gambar_utama ? `/storage/${editData.gambar_utama}` : null
+    );
 
     const editorRef = useRef<HTMLDivElement | null>(null);
     const quillRef = useRef<Quill | null>(null);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            form.setData('gambar_utama', file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
+
+    const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            form.setData('lampiran_pdf', file);
+        }
+    };
 
     useEffect(() => {
         if (!editorRef.current) return;
@@ -79,10 +114,51 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
             const html = quill.root.innerHTML;
             form.setData('konten', html === '<p><br></p>' ? '' : html);
         });
+
+        // Intercept standard image handler to upload automatically
+        const selectLocalImage = () => {
+            const input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.click();
+
+            input.onchange = async () => {
+                const file = input.files?.[0];
+                if (!file) return;
+
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Ukuran gambar terlalu besar (maksimal 5MB)');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('image', file);
+
+                try {
+                    const response = await axios.post('/admin/konten/upload-image', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        }
+                    });
+
+                    if (response.data && response.data.url) {
+                        const range = quill.getSelection();
+                        if (range) {
+                            quill.insertEmbed(range.index, 'image', response.data.url);
+                            quill.setSelection(range.index + 1);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Gagal mengunggah gambar:', error);
+                    alert('Gagal mengunggah gambar ke server.');
+                }
+            };
+        };
+
+        quill.getModule('toolbar').addHandler('image', selectLocalImage);
     }, []);
 
     const submitWithStatus = (newStatus: 'draft' | 'published') => {
-        // Manual validation for required fields
         if (!form.data.judul.trim()) {
             form.setError('judul', 'Judul wajib diisi');
             return;
@@ -93,14 +169,25 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
         }
 
         const dataToSend = {
-            judul: form.data.judul,
-            konten: form.data.konten,
-            tipe: form.data.tipe,
-            status: newStatus,
+            judul:            form.data.judul,
+            konten:           form.data.konten,
+            tipe:             form.data.tipe,
+            status:           newStatus,
+            gambar_utama:     form.data.gambar_utama,
+            lampiran_pdf:     form.data.lampiran_pdf,
+            meta_description: form.data.meta_description,
+            is_featured:      form.data.is_featured ? '1' : '0',
+            kategori:         form.data.kategori,
+            event_tanggal:    form.data.event_tanggal,
+            event_lokasi:     form.data.event_lokasi,
         };
 
         if (isEdit) {
-            router.patch(`/admin/konten/${editData!.id}`, dataToSend, {
+            // Using POST with spoofing method _method=patch to bypass PHP multipart limitations on PATCH/PUT
+            router.post(`/admin/konten/${editData!.id}`, {
+                ...dataToSend,
+                _method: 'patch',
+            }, {
                 onSuccess: onClose
             });
         } else {
@@ -174,7 +261,36 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
                                 <option value="pengumuman">📢 Pengumuman</option>
                             </select>
                         </div>
+
+                        {/* Kategori select */}
+                        <div>
+                            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Kategori</label>
+                            <select value={form.data.kategori} onChange={e => form.setData('kategori', e.target.value)}
+                                className="w-full rounded-lg border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
+                                <option value="Umum">Umum</option>
+                                <option value="Ekonomi">💼 Ekonomi</option>
+                                <option value="Infrastruktur">🏗️ Pembangunan / Infrastruktur</option>
+                                <option value="Kesehatan">🏥 Kesehatan</option>
+                                <option value="Pertanian">🌾 Pertanian / Perkebunan</option>
+                                <option value="Bantuan Sosial">🎁 Bantuan Sosial (Bansos)</option>
+                                <option value="Keamanan">🛡️ Keamanan & Ketertiban</option>
+                            </select>
+                        </div>
                         
+                        {/* Featured (Pin) Toggle */}
+                        <div className="flex items-center justify-between border-t border-b py-3 my-2 border-border">
+                            <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-foreground">Pin Berita Utama</label>
+                                <span className="text-[10px] text-muted-foreground leading-none">Tampilkan di banner teratas</span>
+                            </div>
+                            <input 
+                                type="checkbox"
+                                checked={form.data.is_featured}
+                                onChange={e => form.setData('is_featured', e.target.checked)}
+                                className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500 cursor-pointer"
+                            />
+                        </div>
+
                         {/* Status Info */}
                         <div className="text-xs text-muted-foreground">
                             Status saat ini: <span className="font-semibold capitalize text-foreground">{form.data.status}</span>
@@ -210,6 +326,103 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
                                 className="w-full rounded-lg border border-transparent px-4 py-2 text-sm font-medium hover:bg-muted transition text-muted-foreground text-center cursor-pointer">
                                 Batal
                             </button>
+                        </div>
+                    </div>
+
+                    {/* Gambar Utama Card */}
+                    <div className="rounded-xl border bg-card p-6 shadow-sm space-y-4">
+                        <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider border-b pb-2 border-border flex items-center gap-2">
+                            <ImageIcon className="h-4 w-4 text-teal-600" /> Cover / Gambar Utama
+                        </h3>
+                        {imagePreview ? (
+                            <div className="relative group rounded-lg overflow-hidden border">
+                                <img src={imagePreview} alt="Preview" className="w-full h-32 object-cover" />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+                                    <label className="bg-white text-gray-800 text-xs px-3 py-1.5 rounded font-bold cursor-pointer hover:bg-teal-50">
+                                        Ganti Gambar
+                                        <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                        ) : (
+                            <label className="border-2 border-dashed border-border rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-muted/50 transition">
+                                <ImageIcon className="h-8 w-8 text-muted-foreground mb-2" />
+                                <span className="text-xs text-muted-foreground text-center">Pilih Gambar Sampul Berita</span>
+                                <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+                            </label>
+                        )}
+                        {form.errors.gambar_utama && <p className="text-xs text-red-500 mt-1">{form.errors.gambar_utama}</p>}
+                    </div>
+
+                    {/* Lampiran PDF Card */}
+                    <div className="rounded-xl border bg-card p-6 shadow-sm space-y-4">
+                        <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider border-b pb-2 border-border flex items-center gap-2">
+                            <PdfIcon className="h-4 w-4 text-teal-600" /> Lampiran Surat/PDF
+                        </h3>
+                        <div>
+                            {editData?.lampiran_pdf && (
+                                <div className="text-xs mb-3 p-2 bg-muted rounded flex items-center justify-between">
+                                    <span className="truncate max-w-[150px]">📄 {editData.lampiran_pdf.split('/').pop()}</span>
+                                    <a href={`/storage/${editData.lampiran_pdf}`} target="_blank" rel="noreferrer" className="text-teal-600 hover:underline font-semibold shrink-0">Lihat</a>
+                                </div>
+                            )}
+                            <input 
+                                type="file" 
+                                accept="application/pdf" 
+                                onChange={handlePdfChange} 
+                                className="w-full text-xs text-muted-foreground file:mr-2 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100 cursor-pointer"
+                            />
+                            {form.errors.lampiran_pdf && <p className="text-xs text-red-500 mt-1">{form.errors.lampiran_pdf}</p>}
+                        </div>
+                    </div>
+
+                    {/* Agenda Kegiatan (Opsional) */}
+                    <div className="rounded-xl border bg-card p-6 shadow-sm space-y-4">
+                        <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider border-b pb-2 border-border flex items-center gap-2">
+                            <CalendarIcon className="h-4 w-4 text-teal-600" /> Agenda Acara (Opsional)
+                        </h3>
+                        <div className="space-y-3">
+                            <div>
+                                <label className="mb-1 block text-xs font-semibold text-muted-foreground uppercase tracking-wider">Tanggal Event</label>
+                                <div className="relative">
+                                    <input 
+                                        type="date" 
+                                        value={form.data.event_tanggal} 
+                                        onChange={e => form.setData('event_tanggal', e.target.value)}
+                                        className="w-full rounded-lg border bg-background px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-500" 
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="mb-1 block text-xs font-semibold text-muted-foreground uppercase tracking-wider">Tempat / Lokasi</label>
+                                <div className="relative">
+                                    <input 
+                                        type="text" 
+                                        value={form.data.event_lokasi} 
+                                        onChange={e => form.setData('event_lokasi', e.target.value)}
+                                        placeholder="Misal: Aula Kantor Desa"
+                                        className="w-full rounded-lg border bg-background px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-500" 
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* SEO & Meta Description */}
+                    <div className="rounded-xl border bg-card p-6 shadow-sm space-y-4">
+                        <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider border-b pb-2 border-border flex items-center gap-2">
+                            <GlobeIcon className="h-4 w-4 text-teal-600" /> Optimasi SEO / Meta
+                        </h3>
+                        <div>
+                            <label className="mb-1 block text-xs font-semibold text-muted-foreground uppercase tracking-wider">Meta Description (WA Share)</label>
+                            <textarea 
+                                value={form.data.meta_description} 
+                                onChange={e => form.setData('meta_description', e.target.value)}
+                                rows={3}
+                                placeholder="Tulis deskripsi singkat untuk pratinjau saat dibagikan ke WhatsApp..."
+                                className="w-full rounded-lg border bg-background px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none" 
+                            />
+                            <p className="text-[10px] text-muted-foreground text-right">{form.data.meta_description.length}/500 karakter</p>
                         </div>
                     </div>
                 </div>

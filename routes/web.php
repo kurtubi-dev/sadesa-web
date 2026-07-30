@@ -106,6 +106,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('kategori-aduan/{kategoriAduan}',         [AdminKategoriAduanController::class, 'destroy'])->name('kategori-aduan.destroy');
 
         // Konten Desa
+        Route::post('konten/upload-image',          [AdminKontenController::class, 'uploadImage'])->name('konten.upload-image');
         Route::get('konten',                        [AdminKontenController::class, 'index'])->name('konten');
         Route::post('konten',                       [AdminKontenController::class, 'store'])->name('konten.store');
         Route::patch('konten/{konten}',             [AdminKontenController::class, 'update'])->name('konten.update');
