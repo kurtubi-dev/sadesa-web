@@ -56,8 +56,6 @@ function Navbar({ user, canRegister }: { user: PageProps['auth']['user']; canReg
         { href: '#beranda', label: 'Beranda' },
         { href: '#tentang', label: 'Tentang' },
         { href: '#fitur', label: 'Layanan' },
-        { href: '#transparansi', label: 'Transparansi' },
-        { href: '#statistik', label: 'Statistik' },
         { href: '#berita', label: 'Berita' },
         { href: '#buku-tamu', label: 'Buku Tamu' },
         { href: '#kontak', label: 'Kontak' },
@@ -597,21 +595,21 @@ function Statistik() {
                                         <line key={i} x1="0" y1={`${i * 25}%`} x2="100%" y2={`${i * 25}%`} className="stroke-border" strokeDasharray="4 4" />
                                     ))}
                                     {/* Line Graph 1 */}
-                                    <path 
-                                        d="M 0 180 Q 150 150 300 190 T 600 100 T 900 130 T 1200 80" 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="3" 
-                                        className="text-teal-500" 
+                                    <path
+                                        d="M 0 180 Q 150 150 300 190 T 600 100 T 900 130 T 1200 80"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="3"
+                                        className="text-teal-500"
                                         vectorEffect="non-scaling-stroke"
                                     />
                                     {/* Line Graph 2 */}
-                                    <path 
-                                        d="M 0 220 Q 150 200 300 230 T 600 160 T 900 180 T 1200 140" 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="3" 
-                                        className="text-blue-500 opacity-60" 
+                                    <path
+                                        d="M 0 220 Q 150 200 300 230 T 600 160 T 900 180 T 1200 140"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="3"
+                                        className="text-blue-500 opacity-60"
                                         vectorEffect="non-scaling-stroke"
                                     />
                                 </svg>
@@ -801,15 +799,15 @@ function Kontak() {
                     {/* Info kontak */}
                     <div className="space-y-5">
                         {[
-                            { 
-                                icon: MapPin, 
-                                title: 'Alamat', 
+                            {
+                                icon: MapPin,
+                                title: 'Alamat',
                                 lines: [
-                                    'Pemerintah Desa Cirangkong', 
-                                    'Jl. Lempar - Cirangkong KM. 08', 
+                                    'Pemerintah Desa Cirangkong',
+                                    'Jl. Lempar - Cirangkong KM. 08',
                                     'Desa Cirangkong Kecamatan Cijambe',
                                     'Kabupaten Subang, 41286'
-                                ] 
+                                ]
                             },
                             { icon: Phone, title: 'Telepon', lines: ['(0260) xxxx-xxxx'] },
                             { icon: Mail, title: 'Email', lines: ['desacirangkong@subang.go.id'] },
@@ -849,13 +847,13 @@ function Kontak() {
                     {/* Map */}
                     <div className="lg:col-span-2">
                         <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm h-full min-h-[400px]">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31718.42340576395!2d107.7262447!3d-6.4251765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6923c6f05a9b73%3A0xc669f6f6f9c9a66a!2sDesa%20Cirangkong!5e0!3m2!1sid!2sid!4v1717000000000!5m2!1sid!2sid" 
-                                width="100%" 
-                                height="100%" 
-                                style={{ border: 0 }} 
-                                allowFullScreen={true} 
-                                loading="lazy" 
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31718.42340576395!2d107.7262447!3d-6.4251765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6923c6f05a9b73%3A0xc669f6f6f9c9a66a!2sDesa%20Cirangkong!5e0!3m2!1sid!2sid!4v1717000000000!5m2!1sid!2sid"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen={true}
+                                loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                                 className="invert-[0.05] grayscale-[0.2] dark:invert-[0.9] dark:hue-rotate-180"
                             ></iframe>
@@ -889,7 +887,7 @@ function Footer({ canRegister }: { canRegister: boolean }) {
                     <div>
                         <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">Navigasi</p>
                         <ul className="space-y-2">
-                            {['Beranda', 'Tentang', 'Layanan', 'Berita', 'Transparansi', 'Kontak'].map(l => (
+                            {['Beranda', 'Tentang', 'Layanan', 'Berita', 'Kontak'].map(l => (
                                 <li key={l}><a href={`#${l.toLowerCase()}`} className="text-sm text-gray-400 transition hover:text-teal-400">{l}</a></li>
                             ))}
                         </ul>
@@ -953,8 +951,7 @@ export default function Welcome({ canRegister = true, berita = [] }: { canRegist
                 <Tentang />
                 <Fitur />
                 <ProfilDesa />
-                <Transparansi />
-                <Statistik />
+                {/* Section Transparansi & Statistik dinonaktifkan sementara */}
                 <Berita berita={berita} />
                 <BukuTamuSection />
                 <Kontak />
