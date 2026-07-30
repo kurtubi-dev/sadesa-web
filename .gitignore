@@ -1,0 +1,46 @@
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+.env.backup
+.env.production
+*.log
+npm-debug.log
+yarn-error.log
+
+# Project Specific
+/.claude/
+/.clone/
+/.gemini/
+
+# Laravel specifics (at root)
+/.phpunit.cache
+/bootstrap/ssr
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
+/vendor
+.phpactor.json
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+/auth.json
+
+# IDE Helpers
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# Editors
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
