@@ -198,9 +198,9 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
     };
 
     return (
-        <div className="flex flex-col gap-6 p-4">
+        <div className="flex flex-col gap-4 p-4 lg:h-[calc(100vh-80px)] lg:overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between shrink-0 mb-1">
                 <div>
                     <h1 className="text-xl font-bold text-foreground">
                         {isEdit ? 'Edit Konten Desa' : 'Buat Konten Baru'}
@@ -215,10 +215,10 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
             </div>
 
             {/* Main Form with Sidebar Grid */}
-            <form onSubmit={e => e.preventDefault()} className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <form onSubmit={e => e.preventDefault()} className="grid grid-cols-1 lg:grid-cols-4 gap-6 flex-1 lg:overflow-hidden pb-2">
                 
                 {/* Left Column: Editor (Col Span 3) */}
-                <div className="lg:col-span-3 flex flex-col gap-6">
+                <div className="lg:col-span-3 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-2 pb-10">
                     <div className="rounded-xl border bg-card p-6 shadow-sm space-y-6">
                         {/* Judul Input - Clean Document Style */}
                         <div>
@@ -244,7 +244,7 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
                 </div>
 
                 {/* Right Column: Settings Panel (Col Span 1) */}
-                <div className="lg:col-span-1 flex flex-col gap-6">
+                <div className="lg:col-span-1 flex flex-col gap-6 lg:h-full lg:overflow-y-auto pr-2 pb-10">
                     
                     {/* Publishing settings */}
                     <div className="rounded-xl border bg-card p-6 shadow-sm space-y-4">
@@ -267,45 +267,42 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
                             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Kategori</label>
                             <select value={form.data.kategori} onChange={e => form.setData('kategori', e.target.value)}
                                 className="w-full rounded-lg border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
-                                <option value="Umum">Umum</option>
+                                <option value="Umum">🌍 Umum</option>
                                 <option value="Ekonomi">💼 Ekonomi</option>
-                                <option value="Infrastruktur">🏗️ Pembangunan / Infrastruktur</option>
+                                <option value="Infrastruktur">🏗️ Infrastruktur</option>
                                 <option value="Kesehatan">🏥 Kesehatan</option>
-                                <option value="Pertanian">🌾 Pertanian / Perkebunan</option>
-                                <option value="Bantuan Sosial">🎁 Bantuan Sosial (Bansos)</option>
-                                <option value="Keamanan">🛡️ Keamanan & Ketertiban</option>
+                                <option value="Pertanian">🌾 Pertanian</option>
+                                <option value="Bantuan Sosial">🎁 Bantuan Sosial</option>
+                                <option value="Keamanan">🛡️ Keamanan</option>
                             </select>
                         </div>
                         
-                        {/* Featured (Pin) Toggle */}
-                        <div className="flex items-center justify-between border-t border-b py-3 my-2 border-border">
+                        {/* Featured (Pin Utama) toggle */}
+                        <div className="flex items-center justify-between border-t pt-3 border-border">
                             <div>
-                                <label className="block text-xs font-bold uppercase tracking-wider text-foreground">Pin Berita Utama</label>
-                                <span className="text-[10px] text-muted-foreground leading-none">Tampilkan di banner teratas</span>
+                                <label className="text-xs font-semibold uppercase tracking-wider text-foreground">Pin Berita Utama</label>
+                                <p className="text-[10px] text-muted-foreground leading-snug">Tampilkan di banner teratas halaman publik</p>
                             </div>
                             <input 
-                                type="checkbox"
-                                checked={form.data.is_featured}
+                                type="checkbox" 
+                                checked={form.data.is_featured} 
                                 onChange={e => form.setData('is_featured', e.target.checked)}
-                                className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500 cursor-pointer"
+                                className="h-4 w-4 rounded border-border text-teal-600 focus:ring-teal-500" 
                             />
                         </div>
 
-                        {/* Status Info */}
-                        <div className="text-xs text-muted-foreground">
-                            Status saat ini: <span className="font-semibold capitalize text-foreground">{form.data.status}</span>
+                        {/* Status Current Label */}
+                        <div className="border-t pt-3 border-border">
+                            <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">Status saat ini:</span>
+                            <span className={`ml-1.5 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
+                                isEdit ? (editData.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600') : 'bg-gray-100 text-gray-600'
+                            }`}>
+                                {isEdit ? (editData.status === 'published' ? 'Dipublikasikan' : 'Draft') : 'Baru / Draft'}
+                            </span>
                         </div>
 
-                        {/* Author Info */}
-                        <div className="border-t pt-3 mt-3 text-xs text-muted-foreground space-y-1">
-                            <div>Penulis: <span className="font-semibold text-foreground">{editData?.admin?.name ?? 'Anda (Admin)'}</span></div>
-                            {editData && (
-                                <div>Dibuat: <span className="font-semibold text-foreground">{new Date(editData.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span></div>
-                            )}
-                        </div>
-
-                        {/* Action buttons inside the sidebar card */}
-                        <div className="flex flex-col gap-2 pt-3 border-t">
+                        {/* Action buttons inside sidebar */}
+                        <div className="space-y-2 pt-2">
                             <button 
                                 type="button" 
                                 onClick={() => submitWithStatus('published')}
@@ -357,7 +354,7 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
                     {/* Lampiran PDF Card */}
                     <div className="rounded-xl border bg-card p-6 shadow-sm space-y-4">
                         <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider border-b pb-2 border-border flex items-center gap-2">
-                            <PdfIcon className="h-4 w-4 text-teal-600" /> Lampiran Surat/PDF
+                            <PdfIcon className="h-4 w-4 text-teal-600" /> Lampiran Surat/PDF (Opsional)
                         </h3>
                         <div>
                             {editData?.lampiran_pdf && (
