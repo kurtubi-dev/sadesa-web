@@ -194,6 +194,7 @@
     line-height: 1.6 !important;
     color: var(--color-foreground) !important;
     background-color: var(--color-card) !important;
+    min-height: 480px !important;
 }
 .ql-toolbar {
     background-color: var(--color-muted) !important;

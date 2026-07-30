@@ -11,38 +11,42 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("
-            ALTER TABLE pengajuan_surat
-            MODIFY COLUMN status ENUM(
-                'menunggu',
-                'diproses',
-                'diverifikasi',
-                'ditolak_staff',
-                'menunggu_pengesahan',
-                'disetujui',
-                'ditolak_kepala',
-                'siap_diambil',
-                'selesai',
-                'dibatalkan'
-            ) NOT NULL DEFAULT 'menunggu'
-        ");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("
+                ALTER TABLE pengajuan_surat
+                MODIFY COLUMN status ENUM(
+                    'menunggu',
+                    'diproses',
+                    'diverifikasi',
+                    'ditolak_staff',
+                    'menunggu_pengesahan',
+                    'disetujui',
+                    'ditolak_kepala',
+                    'siap_diambil',
+                    'selesai',
+                    'dibatalkan'
+                ) NOT NULL DEFAULT 'menunggu'
+            ");
+        }
     }
 
     public function down(): void
     {
-        DB::statement("
-            ALTER TABLE pengajuan_surat
-            MODIFY COLUMN status ENUM(
-                'menunggu',
-                'diproses',
-                'diverifikasi',
-                'ditolak_staff',
-                'menunggu_pengesahan',
-                'disetujui',
-                'ditolak_kepala',
-                'selesai',
-                'dibatalkan'
-            ) NOT NULL DEFAULT 'menunggu'
-        ");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("
+                ALTER TABLE pengajuan_surat
+                MODIFY COLUMN status ENUM(
+                    'menunggu',
+                    'diproses',
+                    'diverifikasi',
+                    'ditolak_staff',
+                    'menunggu_pengesahan',
+                    'disetujui',
+                    'ditolak_kepala',
+                    'selesai',
+                    'dibatalkan'
+                ) NOT NULL DEFAULT 'menunggu'
+            ");
+        }
     }
 };

@@ -17,7 +17,7 @@ class AdminKontenController extends Controller
     public function index(Request $request): Response
     {
         $query = KontenDesa::with('admin:id,name')
-            ->select('id', 'admin_id', 'judul', 'slug', 'tipe', 'status', 'created_at');
+            ->select('id', 'admin_id', 'judul', 'slug', 'konten', 'tipe', 'status', 'created_at');
 
         if ($request->filled('tipe')) {
             $query->where('tipe', $request->tipe);
