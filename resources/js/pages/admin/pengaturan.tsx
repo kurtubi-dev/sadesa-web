@@ -26,7 +26,7 @@ interface Settings {
     [key: string]: string | undefined;
 }
 
-interface Props {
+interface Props extends Record<string, any> {
     settings: Settings;
     flash?: { success?: string; error?: string };
 }

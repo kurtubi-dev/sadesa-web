@@ -10,6 +10,8 @@ interface KontenItem {
     tipe: string;
     created_at: string;
     konten: string;
+    gambar_utama?: string | null;
+    kategori?: string | null;
     admin?: { id: number; name: string } | null;
 }
 

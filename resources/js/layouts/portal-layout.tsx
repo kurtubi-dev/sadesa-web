@@ -42,14 +42,15 @@ interface Settings {
     [key: string]: string | undefined;
 }
 
-interface Props {
+interface Props extends Record<string, any> {
     auth: { user: { name: string } | null };
     canRegister?: boolean;
     settings?: Settings;
 }
 
-export default function PortalLayout({ children, title }: { children: React.ReactNode; title?: string }) {
-    const { auth, canRegister, settings = {} } = usePage<Props>().props;
+export default function PortalLayout({ children, title, settings: propSettings }: { children: React.ReactNode; title?: string; settings?: any }) {
+    const { auth, canRegister, settings: pageSettings = {} } = usePage<Props>().props;
+    const settings = propSettings || pageSettings;
     const user = auth?.user ?? null;
     const { appearance, updateAppearance } = useAppearance();
 

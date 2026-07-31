@@ -231,6 +231,3 @@ export default function InformasiShow({ settings, artikel, terkait }: Props) {
         </PortalLayout>
     );
 }
-
-// Imports
-import { ArrowLeft } from 'lucide-react';
