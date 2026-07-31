@@ -25,15 +25,39 @@ use Laravel\Fortify\Features;
 
 use App\Http\Controllers\WelcomeController;
 
-Route::get('/', [WelcomeController::class, 'index'])->name('home');
+// ─── Portal Publik Controllers ────────────────────────────────────────────────
+use App\Http\Controllers\Portal\PortalHomeController;
+use App\Http\Controllers\Portal\PortalProfilController;
+use App\Http\Controllers\Portal\PortalPemerintahanController;
+use App\Http\Controllers\Portal\PortalInformasiController;
+use App\Http\Controllers\Portal\PortalLayananController;
+use App\Http\Controllers\Portal\PortalKontakController;
 
-// ─── Informasi publik (tanpa auth) ────────────────────────────────────────────
-Route::get('informasi',        [InformasiController::class, 'index'])->name('informasi.index');
-Route::get('informasi/{slug}', [InformasiController::class, 'show'])->name('informasi.show');
+Route::get('/', [PortalHomeController::class, 'index'])->name('home');
 
-// ─── Buku Tamu publik (tanpa auth) ────────────────────────────────────────────
-Route::get('buku-tamu',  [BukuTamuController::class, 'create'])->name('buku-tamu.create');
-Route::post('buku-tamu', [BukuTamuController::class, 'store'])->name('buku-tamu.store');
+// ─── Profil Desa ─────────────────────────────────────────────────────────────
+Route::get('profil', [PortalProfilController::class, 'index'])->name('profil');
+
+// ─── Pemerintahan Desa ────────────────────────────────────────────────────────
+Route::get('pemerintahan',          [PortalPemerintahanController::class, 'perangkat'])->name('pemerintahan.perangkat');
+Route::get('pemerintahan/bpd',      [PortalPemerintahanController::class, 'bpd'])->name('pemerintahan.bpd');
+Route::get('pemerintahan/lembaga',  [PortalPemerintahanController::class, 'lembaga'])->name('pemerintahan.lembaga');
+
+// ─── Informasi Publik ─────────────────────────────────────────────────────────
+Route::get('informasi',                  fn() => redirect()->route('informasi.berita'));
+Route::get('informasi/berita',           [PortalInformasiController::class, 'berita'])->name('informasi.berita');
+Route::get('informasi/berita/{slug}',    [PortalInformasiController::class, 'detailBerita'])->name('informasi.show');
+Route::get('informasi/pengumuman',       [PortalInformasiController::class, 'pengumuman'])->name('informasi.pengumuman');
+Route::get('informasi/agenda',           [PortalInformasiController::class, 'agenda'])->name('informasi.agenda');
+Route::get('informasi/galeri',           [PortalInformasiController::class, 'galeri'])->name('informasi.galeri');
+
+// ─── Layanan Desa (Placeholder) ──────────────────────────────────────────────
+Route::get('layanan', [PortalLayananController::class, 'index'])->name('layanan');
+
+// ─── Kontak & Buku Tamu ───────────────────────────────────────────────────────
+Route::get('kontak',    [PortalKontakController::class, 'index'])->name('kontak');
+Route::post('kontak',   [PortalKontakController::class, 'storeBukuTamu'])->name('kontak.store');
+Route::get('buku-tamu', fn() => redirect()->route('kontak'));
 
 // ─── Pantau Antrean publik (UC-35) ────────────────────────────────────────────
 Route::get('antrean', [\App\Http\Controllers\PantauAntreanController::class, 'index'])->name('antrean.publik');
