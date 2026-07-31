@@ -1,9 +1,10 @@
 import { Head, router, usePage } from '@inertiajs/react';
-import { Building2, ImageIcon, Save, Settings2, UserCheck } from 'lucide-react';
+import { Building2, ImageIcon, Save, Settings2, UserCheck, FileText } from 'lucide-react';
 import { useRef, useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
+import { RichEditor } from '@/components/rich-editor';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -364,6 +365,58 @@ export default function PengaturanPage() {
                                         <p className="mt-1.5 text-xs text-muted-foreground">
                                             PNG/JPG, maks 2 MB. Logo akan tampil di kiri kop surat.
                                         </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Profil Desa */}
+                            <div className="rounded-2xl border bg-card p-6 shadow-sm">
+                                <div className="mb-5 flex items-center gap-2">
+                                    <FileText className="h-4 w-4 text-teal-600" />
+                                    <h2 className="font-semibold">Profil Desa (Halaman Publik)</h2>
+                                </div>
+                                <div className="space-y-5">
+                                    <div>
+                                        <label className="mb-1.5 block text-sm font-medium">Sejarah Desa</label>
+                                        <RichEditor
+                                            value={form.profil_sejarah ?? ''}
+                                            onChange={val => set('profil_sejarah', val)}
+                                            placeholder="Tulis sejarah berdirinya Desa Cirangkong..."
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="space-y-1.5">
+                                            <label className="mb-1.5 block text-sm font-medium">Visi Desa</label>
+                                            <RichEditor
+                                                value={form.profil_visi ?? ''}
+                                                onChange={val => set('profil_visi', val)}
+                                                placeholder="Visi pembangunan desa..."
+                                            />
+                                        </div>
+                                        <div className="space-y-1.5">
+                                            <label className="mb-1.5 block text-sm font-medium">Misi Desa</label>
+                                            <RichEditor
+                                                value={form.profil_misi ?? ''}
+                                                onChange={val => set('profil_misi', val)}
+                                                placeholder="Misi pembangunan desa..."
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="mb-1.5 block text-sm font-medium">Kondisi Geografis</label>
+                                        <RichEditor
+                                            value={form.profil_geografis ?? ''}
+                                            onChange={val => set('profil_geografis', val)}
+                                            placeholder="Letak astronomis, batas wilayah, iklim, dll..."
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="mb-1.5 block text-sm font-medium">Demografi & Kependudukan</label>
+                                        <RichEditor
+                                            value={form.profil_demografi ?? ''}
+                                            onChange={val => set('profil_demografi', val)}
+                                            placeholder="Struktur penduduk, mata pencaharian, dll..."
+                                        />
                                     </div>
                                 </div>
                             </div>
