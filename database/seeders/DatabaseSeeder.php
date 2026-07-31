@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             WilayahSeeder::class,        // harus pertama — users FK ke wilayah
             UserSeeder::class,
             AppSettingSeeder::class,     // kop surat & kades defaults
+            PejabatSeeder::class,        // data pejabat (perangkat, bpd, lembaga)
             PendudukSeeder::class,       // data kependudukan warga (sumber template surat)
             MasterSuratSeeder::class,
             KategoriAduanSeeder::class,
