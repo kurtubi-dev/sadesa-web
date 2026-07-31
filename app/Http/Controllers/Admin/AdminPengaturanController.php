@@ -21,20 +21,25 @@ class AdminPengaturanController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $request->validate([
-            'kop_jabatan'   => 'nullable|string|max:100',
-            'kop_nama_desa' => 'nullable|string|max:100',
-            'kop_kecamatan' => 'nullable|string|max:100',
-            'kop_kabupaten' => 'nullable|string|max:100',
-            'kop_alamat'    => 'nullable|string|max:500',
-            'kop_telepon'   => 'nullable|string|max:50',
-            'kop_fax'       => 'nullable|string|max:50',
-            'kop_kode_pos'  => 'nullable|string|max:10',
-            'kop_website'   => 'nullable|string|max:255',
-            'kop_email'     => 'nullable|email|max:255',
-            'kades_nama'    => 'nullable|string|max:100',
-            'kades_nip'     => 'nullable|string|max:50',
-            'kades_jabatan' => 'nullable|string|max:100',
-            'kop_logo'      => 'nullable|image|max:2048',
+            'kop_jabatan'      => 'nullable|string|max:100',
+            'kop_nama_desa'    => 'nullable|string|max:100',
+            'kop_kecamatan'    => 'nullable|string|max:100',
+            'kop_kabupaten'    => 'nullable|string|max:100',
+            'kop_alamat'       => 'nullable|string|max:500',
+            'kop_telepon'      => 'nullable|string|max:50',
+            'kop_fax'          => 'nullable|string|max:50',
+            'kop_kode_pos'     => 'nullable|string|max:10',
+            'kop_website'      => 'nullable|string|max:255',
+            'kop_email'        => 'nullable|email|max:255',
+            'kades_nama'       => 'nullable|string|max:100',
+            'kades_nip'        => 'nullable|string|max:50',
+            'kades_jabatan'    => 'nullable|string|max:100',
+            'kop_logo'         => 'nullable|image|max:2048',
+            'profil_sejarah'   => 'nullable|string',
+            'profil_visi'      => 'nullable|string',
+            'profil_misi'      => 'nullable|string',
+            'profil_geografis' => 'nullable|string',
+            'profil_demografi' => 'nullable|string',
         ]);
 
         // ── Logo upload ───────────────────────────────────────────────────────
@@ -48,6 +53,7 @@ class AdminPengaturanController extends Controller
             'kop_jabatan', 'kop_nama_desa', 'kop_kecamatan', 'kop_kabupaten',
             'kop_alamat', 'kop_telepon', 'kop_fax', 'kop_kode_pos',
             'kop_website', 'kop_email', 'kades_nama', 'kades_nip', 'kades_jabatan',
+            'profil_sejarah', 'profil_visi', 'profil_misi', 'profil_geografis', 'profil_demografi',
         ];
 
         foreach ($textKeys as $key) {
@@ -56,6 +62,6 @@ class AdminPengaturanController extends Controller
             }
         }
 
-        return back()->with('success', 'Pengaturan kop surat berhasil disimpan.');
+        return back()->with('success', 'Pengaturan desa berhasil disimpan.');
     }
 }

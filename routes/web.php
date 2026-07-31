@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminKategoriAduanController;
 use App\Http\Controllers\Admin\AdminKontenController;
 use App\Http\Controllers\Admin\AdminMasterSuratController;
 use App\Http\Controllers\Admin\AdminPengaturanController;
+use App\Http\Controllers\Admin\AdminPejabatController;
 use App\Http\Controllers\Admin\AdminWilayahController;
 use App\Http\Controllers\Admin\AdminPengaduanController;
 use App\Http\Controllers\Admin\AdminPengajuanController;
@@ -121,6 +122,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Pengaturan Desa (Kop Surat)
         Route::get('pengaturan',                    [AdminPengaturanController::class, 'index'])->name('pengaturan');
         Route::post('pengaturan',                   [AdminPengaturanController::class, 'update'])->name('pengaturan.update');
+
+        // Kelola Pejabat (Perangkat Desa, BPD, Lembaga)
+        Route::get('pejabat',                       [AdminPejabatController::class, 'index'])->name('pejabat');
+        Route::post('pejabat',                      [AdminPejabatController::class, 'store'])->name('pejabat.store');
+        Route::post('pejabat/{pejabat}',             [AdminPejabatController::class, 'update'])->name('pejabat.update');
+        Route::delete('pejabat/{pejabat}',           [AdminPejabatController::class, 'destroy'])->name('pejabat.destroy');
 
         // Broadcast Notifikasi
         Route::get('broadcast',                     [AdminBroadcastController::class, 'index'])->name('broadcast');
