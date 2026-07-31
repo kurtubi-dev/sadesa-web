@@ -80,7 +80,7 @@ const kepalDesaNavItems: NavItem[] = [
 
 const wargaNavItems: NavItem[] = [
     { title: 'Dashboard',            href: dashboard(),                  icon: LayoutDashboard },
-    { title: 'Informasi Desa',       href: '/informasi',                 icon: Newspaper },
+    { title: 'Informasi Desa',       href: '/informasi/berita',          icon: Newspaper },
     { title: 'Pengajuan Surat',      href: '/warga/pengajuan',           icon: FileText },
     { title: 'Pengaduan',            href: '/warga/pengaduan',           icon: Megaphone },
     { title: 'Data Kependudukan',    href: '/warga/data-diri',           icon: UserCheck },
