@@ -1,8 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
-import { 
-    FileText, 
-    Megaphone, 
-    Clock, 
+import {
+    FileText,
+    Megaphone,
+    Clock,
     Lock,
     HelpCircle,
     CheckCircle
@@ -38,7 +38,7 @@ export default function Layanan({ settings }: Props) {
                         <span className="opacity-55">/</span>
                         <span>Layanan Warga</span>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Katalog Pelayanan Online</h1>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Pelayanan Online</h1>
                     <p className="text-sm text-teal-100 max-w-2xl font-light">
                         Pusat pengajuan berkas administrasi dan pengaduan warga secara digital mandiri Desa {desaName}.
                     </p>
@@ -47,7 +47,7 @@ export default function Layanan({ settings }: Props) {
 
             {/* Content Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-                
+
                 {/* Intro Callout */}
                 <div className="bg-amber-50 dark:bg-amber-950/10 border border-amber-500/20 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-5 items-start sm:items-center">
                     <Clock className="h-10 w-10 text-amber-600 shrink-0" />
@@ -66,7 +66,7 @@ export default function Layanan({ settings }: Props) {
                         <FileText className="h-6 w-6 text-teal-600" />
                         <h2 className="text-xl font-extrabold text-slate-800 dark:text-zinc-100">Pelayanan Persuratan (Segera Hadir)</h2>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {suratLayanan.map((surat, index) => (
                             <div key={index} className="bg-card border p-6 rounded-2xl shadow-xs hover:shadow-md transition relative overflow-hidden group">
@@ -97,7 +97,7 @@ export default function Layanan({ settings }: Props) {
                         <div className="absolute right-4 top-4 bg-muted text-muted-foreground/60 text-[9px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
                             <Lock className="h-3 w-3" /> Segera Hadir
                         </div>
-                        
+
                         <div className="bg-teal-50 dark:bg-teal-950/20 text-teal-600 rounded-2xl p-4 shrink-0 border h-16 w-16 flex items-center justify-center">
                             <Megaphone className="h-8 w-8" />
                         </div>

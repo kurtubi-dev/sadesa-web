@@ -1,16 +1,16 @@
 import { Head, Link } from '@inertiajs/react';
-import { 
-    Calendar, 
-    ChevronRight, 
-    FileText, 
-    MapPin, 
-    Newspaper, 
-    ArrowRight, 
-    Clock, 
-    Eye, 
-    Award, 
-    Shield, 
-    Heart, 
+import {
+    Calendar,
+    ChevronRight,
+    FileText,
+    MapPin,
+    Newspaper,
+    ArrowRight,
+    Clock,
+    Eye,
+    Award,
+    Shield,
+    Heart,
     UserCheck,
     Volume2,
     CalendarDays
@@ -87,7 +87,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
             <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 text-white overflow-hidden -mt-8 sm:-mt-16 py-20 px-4">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10 mix-blend-overlay bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                
+
                 {/* Soft glow */}
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-pulse duration-5000"></div>
@@ -184,7 +184,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
             <section className="bg-slate-100/60 dark:bg-zinc-900/30 py-16 border-y">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        
+
                         {/* Berita List (Left Col - Span 8) */}
                         <div className="lg:col-span-8 space-y-6">
                             <div className="flex justify-between items-center border-b pb-4">
@@ -244,7 +244,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
 
                         {/* Sidebar: Pengumuman & Agenda (Right Col - Span 4) */}
                         <div className="lg:col-span-4 space-y-8">
-                            
+
                             {/* Pengumuman */}
                             <div className="space-y-4">
                                 <div className="border-b pb-3 flex justify-between items-center">
@@ -329,7 +329,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
                     </p>
                     <div className="flex justify-center gap-4">
                         <Link href="/layanan" className="bg-white text-teal-900 font-bold px-6 py-3 rounded-xl shadow hover:bg-teal-50 transition">
-                            Lihat Katalog Layanan
+                            Lihat Layanan
                         </Link>
                         <Link href="/kontak" className="bg-teal-900/60 border border-teal-700 text-white font-bold px-6 py-3 rounded-xl shadow hover:bg-teal-900/80 transition">
                             Hubungi Kami / Isi Buku Tamu
