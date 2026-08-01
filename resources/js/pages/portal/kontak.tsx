@@ -52,7 +52,7 @@ export default function Kontak({ settings, flash }: Props) {
     return (
         <PortalLayout title="Hubungi Kami" settings={settings as any}>
             {/* Banner Header */}
-            <div className="bg-gradient-to-r from-teal-900 to-emerald-900 text-white py-12 border-b">
+            <div className="bg-gradient-to-r from-teal-950 to-emerald-900 text-white py-16 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
                     <div className="flex items-center gap-1.5 text-xs text-teal-200 font-bold uppercase tracking-wider">
                         <Link href="/" className="hover:text-white transition">Beranda</Link>
@@ -60,14 +60,14 @@ export default function Kontak({ settings, flash }: Props) {
                         <span>Hubungi Kami</span>
                     </div>
                     <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Kontak & Buku Tamu</h1>
-                    <p className="text-sm text-teal-100 max-w-2xl font-light">
+                    <p className="text-base text-teal-100 max-w-2xl font-medium">
                         Kunjungi kantor desa kami, hubungi layanan admisi, atau catat kunjungan Anda secara resmi melalui buku tamu digital.
                     </p>
                 </div>
             </div>
 
             {/* Content Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                     
                     {/* Left Side: Contact Information & Map (Span 5) */}

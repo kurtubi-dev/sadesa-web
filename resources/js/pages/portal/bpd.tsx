@@ -28,7 +28,7 @@ export default function BPD({ settings, pejabat, title, deskripsi }: Props) {
     return (
         <PortalLayout title={title} settings={settings as any}>
             {/* Banner Header */}
-            <div className="bg-gradient-to-r from-teal-900 to-emerald-900 text-white py-12 border-b">
+            <div className="bg-gradient-to-r from-teal-950 to-emerald-900 text-white py-16 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
                     <div className="flex items-center gap-1.5 text-xs text-teal-200 font-bold uppercase tracking-wider">
                         <Link href="/" className="hover:text-white transition">Beranda</Link>
@@ -38,12 +38,12 @@ export default function BPD({ settings, pejabat, title, deskripsi }: Props) {
                         <span>BPD</span>
                     </div>
                     <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">{title}</h1>
-                    <p className="text-sm text-teal-100 max-w-2xl font-light">{deskripsi}</p>
+                    <p className="text-base text-teal-100 max-w-2xl font-medium">{deskripsi}</p>
                 </div>
             </div>
 
             {/* Content Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 
                 {/* Organogram Callout / Baggian */}
                 <div className="mb-16 text-center space-y-4">

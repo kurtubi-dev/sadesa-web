@@ -45,7 +45,7 @@ export default function Profil({ settings }: Props) {
     return (
         <PortalLayout title="Profil Desa" settings={settings as any}>
             {/* Page Header banner */}
-            <div className="bg-gradient-to-r from-teal-900 to-emerald-900 text-white py-12 border-b">
+            <div className="bg-gradient-to-r from-teal-900 to-emerald-900 text-white py-16 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
                     <div className="flex items-center gap-1.5 text-xs text-teal-200 font-bold uppercase tracking-wider">
                         <Link href="/" className="hover:text-white transition">Beranda</Link>
@@ -53,14 +53,14 @@ export default function Profil({ settings }: Props) {
                         <span>Profil Desa</span>
                     </div>
                     <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Profil Desa {desaName}</h1>
-                    <p className="text-sm text-teal-100 max-w-2xl font-light">
+                    <p className="text-base text-teal-100 max-w-2xl font-medium">
                         Mengenal lebih dekat sejarah, visi dan misi pembangunan, letak geografis, serta kependudukan Desa {desaName}.
                     </p>
                 </div>
             </div>
 
             {/* Main content grid */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
                     {/* Left: Sticky Tab Menu (Span 3) */}
@@ -124,7 +124,7 @@ export default function Profil({ settings }: Props) {
                                     <h2 className="text-2xl font-black text-slate-800 dark:text-zinc-100">Sejarah Desa Cirangkong</h2>
                                 </div>
                                 <div 
-                                    className="prose dark:prose-invert max-w-none text-slate-600 dark:text-zinc-300 leading-relaxed space-y-4"
+                                    className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-zinc-300 leading-relaxed space-y-4 font-light"
                                     dangerouslySetInnerHTML={{ __html: settings.profil_sejarah || '<p>Informasi sejarah belum diunggah.</p>' }}
                                 />
                             </div>
@@ -153,7 +153,7 @@ export default function Profil({ settings }: Props) {
                                 <div className="space-y-4">
                                     <h3 className="font-extrabold text-slate-800 dark:text-zinc-100 uppercase tracking-wider text-xs">Misi Pembangunan Desa</h3>
                                     <div 
-                                        className="prose dark:prose-invert max-w-none text-slate-600 dark:text-zinc-300 leading-relaxed font-normal list-decimal pl-5 space-y-3"
+                                        className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-zinc-300 leading-relaxed list-decimal pl-5 space-y-3 font-light"
                                         dangerouslySetInnerHTML={{ __html: settings.profil_misi || '<p>Misi belum diunggah.</p>' }}
                                     />
                                 </div>
@@ -168,7 +168,7 @@ export default function Profil({ settings }: Props) {
                                     <h2 className="text-2xl font-black text-slate-800 dark:text-zinc-100">Kondisi Geografis Desa</h2>
                                 </div>
                                 <div 
-                                    className="prose dark:prose-invert max-w-none text-slate-600 dark:text-zinc-300 leading-relaxed space-y-4"
+                                    className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-zinc-300 leading-relaxed space-y-4 font-light"
                                     dangerouslySetInnerHTML={{ __html: settings.profil_geografis || '<p>Informasi geografis belum diunggah.</p>' }}
                                 />
                                 
@@ -194,7 +194,7 @@ export default function Profil({ settings }: Props) {
                                     <h2 className="text-2xl font-black text-slate-800 dark:text-zinc-100">Demografi Kependudukan</h2>
                                 </div>
                                 <div 
-                                    className="prose dark:prose-invert max-w-none text-slate-600 dark:text-zinc-300 leading-relaxed space-y-4"
+                                    className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-zinc-300 leading-relaxed space-y-4 font-light"
                                     dangerouslySetInnerHTML={{ __html: settings.profil_demografi || '<p>Informasi demografi belum diunggah.</p>' }}
                                 />
                             </div>

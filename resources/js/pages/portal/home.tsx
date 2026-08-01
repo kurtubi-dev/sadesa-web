@@ -101,47 +101,47 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
                             Selamat Datang di <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-300">Desa {desaName}</span>
                         </h1>
-                        <p className="text-base sm:text-lg text-teal-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        <p className="text-lg sm:text-xl text-white max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
                             Pusat informasi resmi, transparansi tata kelola, dan akses layanan digital terpadu bagi segenap masyarakat Desa {desaName}, Kecamatan {settings.kop_kecamatan || 'Cijambe'}, Kabupaten {settings.kop_kabupaten || 'Subang'}.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <Link href="/layanan" className="rounded-xl bg-teal-500 hover:bg-teal-400 px-6 py-3.5 text-sm font-bold text-teal-950 shadow-lg hover:shadow-teal-500/20 transition flex items-center justify-center gap-2">
+                            <Link href="/layanan" className="rounded-xl bg-teal-400 hover:bg-teal-300 px-6 py-4 text-[15px] font-bold text-teal-950 shadow-lg hover:shadow-teal-500/20 transition flex items-center justify-center gap-2">
                                 Layanan Online Mandiri <ArrowRight className="h-4 w-4" />
                             </Link>
-                            <Link href="/profil" className="rounded-xl bg-teal-950/60 hover:bg-teal-900/80 px-6 py-3.5 text-sm font-bold text-white border border-teal-700/40 hover:border-teal-600 transition flex items-center justify-center">
+                            <Link href="/profil" className="rounded-xl bg-teal-950/60 hover:bg-teal-900/80 px-6 py-4 text-[15px] font-bold text-white border border-teal-700/40 hover:border-teal-600 transition flex items-center justify-center">
                                 Jelajahi Profil Desa
                             </Link>
                         </div>
                     </div>
 
                     {/* Quick Stats Grid */}
-                    <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-white/20 transition group">
-                            <UserCheck className="h-8 w-8 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
-                            <p className="text-2xl font-black text-white">4.250+</p>
-                            <p className="text-xs text-teal-200 uppercase font-bold tracking-wider mt-1">Penduduk</p>
+                    <div className="lg:col-span-5 grid grid-cols-2 gap-4 sm:gap-6">
+                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-white/20 transition group">
+                            <UserCheck className="h-9 w-9 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
+                            <p className="text-3xl font-black text-white">4.250+</p>
+                            <p className="text-sm text-teal-100 uppercase font-extrabold tracking-wider mt-1.5">Penduduk</p>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-white/20 transition group">
-                            <Award className="h-8 w-8 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
-                            <p className="text-2xl font-black text-white">100%</p>
-                            <p className="text-xs text-teal-200 uppercase font-bold tracking-wider mt-1">Pelayanan Prima</p>
+                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-white/20 transition group">
+                            <Award className="h-9 w-9 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
+                            <p className="text-3xl font-black text-white">100%</p>
+                            <p className="text-sm text-teal-100 uppercase font-extrabold tracking-wider mt-1.5">Pelayanan Prima</p>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-white/20 transition group">
-                            <Shield className="h-8 w-8 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
-                            <p className="text-2xl font-black text-white">Aman</p>
-                            <p className="text-xs text-teal-200 uppercase font-bold tracking-wider mt-1">Kondusifitas</p>
+                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-white/20 transition group">
+                            <Shield className="h-9 w-9 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
+                            <p className="text-3xl font-black text-white">Aman</p>
+                            <p className="text-sm text-teal-100 uppercase font-extrabold tracking-wider mt-1.5">Kondusifitas</p>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:border-white/20 transition group">
-                            <Heart className="h-8 w-8 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
-                            <p className="text-2xl font-black text-white">Guyub</p>
-                            <p className="text-xs text-teal-200 uppercase font-bold tracking-wider mt-1">Gotong Royong</p>
+                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-white/20 transition group">
+                            <Heart className="h-9 w-9 text-teal-300 mb-3 group-hover:scale-110 transition duration-300" />
+                            <p className="text-3xl font-black text-white">Guyub</p>
+                            <p className="text-sm text-teal-100 uppercase font-extrabold tracking-wider mt-1.5">Gotong Royong</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* Welcome & Greetings Section */}
-            <section className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+            <section className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
                 <div className="bg-white dark:bg-zinc-900 rounded-3xl border shadow-xl p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div className="lg:col-span-4 flex flex-col items-center">
                         <div className="relative h-64 w-52 rounded-2xl overflow-hidden shadow-lg border-4 border-teal-500/20 bg-slate-100 dark:bg-zinc-800">
@@ -181,7 +181,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
             </section>
 
             {/* Info Grid: Berita, Pengumuman & Agenda */}
-            <section className="bg-slate-100/60 dark:bg-zinc-900/30 py-16 border-y">
+            <section className="bg-slate-100/60 dark:bg-zinc-900/30 py-24 border-y">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
@@ -321,7 +321,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
             </section>
 
             {/* Quick Services Links Banner */}
-            <section className="bg-gradient-to-r from-teal-800 to-emerald-800 text-white py-12">
+            <section className="bg-gradient-to-r from-teal-800 to-emerald-800 text-white py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
                     <h2 className="text-2xl sm:text-3xl font-extrabold">Memerlukan Layanan Administrasi Surat & Laporan?</h2>
                     <p className="text-sm text-teal-100 max-w-xl mx-auto">

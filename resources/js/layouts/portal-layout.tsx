@@ -84,87 +84,87 @@ export default function PortalLayout({ children, title, settings: propSettings }
             <Head title={title ? `${title} | Desa ${desaName}` : `Portal Resmi Desa ${desaName}`} />
 
             {/* Topbar Info */}
-            <div className="bg-teal-900 text-teal-100 text-xs py-2 px-4 border-b border-teal-800 hidden sm:block">
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                        <span className="flex items-center gap-1"><Phone className="h-3 w-3" /> {settings.kop_telepon || '-'}</span>
-                        <span className="flex items-center gap-1"><Mail className="h-3 w-3" /> {settings.kop_email || '-'}</span>
+            <div className="bg-teal-900 text-teal-100 text-sm py-2.5 px-4 border-b border-teal-800 hidden sm:block">
+                <div className="max-w-7xl mx-auto flex justify-between items-center font-medium">
+                    <div className="flex items-center gap-5">
+                        <span className="flex items-center gap-1.5"><Phone className="h-4 w-4" /> {settings.kop_telepon || '-'}</span>
+                        <span className="flex items-center gap-1.5"><Mail className="h-4 w-4" /> {settings.kop_email || '-'}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <span className="text-teal-200">Kec. {kecName}, Kab. {kabName}</span>
+                        <span className="text-teal-200 font-semibold">Kec. {kecName}, Kab. {kabName}</span>
                     </div>
                 </div>
             </div>
 
             {/* Navbar */}
-            <nav className={`fixed top-0 sm:top-8 z-50 w-full transition-all duration-300 ${scrolled ? 'bg-background/95 shadow-md backdrop-blur-sm sm:top-0 py-3' : 'bg-background/80 backdrop-blur-sm py-4'}`}>
+            <nav className={`fixed top-0 sm:top-10 z-50 w-full transition-all duration-300 ${scrolled ? 'bg-background/95 shadow-md backdrop-blur-sm sm:top-0 py-3.5' : 'bg-background/80 backdrop-blur-sm py-5'}`}>
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                     {/* Logo & Identity */}
                     <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition">
                         <img 
                             src={logoUrl} 
                             alt={`Logo Desa ${desaName}`} 
-                            className="h-10 w-10 object-contain shrink-0" 
+                            className="h-11 w-11 object-contain shrink-0" 
                             onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-cirangkong-icon.png'; }}
                         />
                         <div className="leading-tight">
-                            <span className="text-base font-bold tracking-tight text-slate-800 dark:text-zinc-100">Desa {desaName}</span>
-                            <p className="text-[10px] text-teal-600 dark:text-teal-400 font-bold uppercase tracking-wider">Kec. {kecName}</p>
+                            <span className="text-lg font-extrabold tracking-tight text-slate-800 dark:text-zinc-100">Desa {desaName}</span>
+                            <p className="text-xs text-teal-600 dark:text-teal-400 font-bold uppercase tracking-wider">Kec. {kecName}</p>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden lg:flex items-center gap-1">
+                    <div className="hidden lg:flex items-center gap-2">
                         {/* Beranda */}
-                        <Link href="/" className="px-3 py-2 rounded-lg text-sm font-semibold text-foreground/80 hover:text-teal-600 transition">
+                        <Link href="/" className="px-3.5 py-2.5 rounded-lg text-[15px] font-bold text-foreground/80 hover:text-teal-600 transition">
                             Beranda
                         </Link>
 
                         {/* Profil Dropdown */}
                         <div className="relative group">
-                            <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold text-foreground/80 hover:text-teal-600 transition">
+                            <button className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg text-[15px] font-bold text-foreground/80 hover:text-teal-600 transition">
                                 Profil Desa <ChevronDown className="h-4 w-4" />
                             </button>
-                            <div className="absolute left-0 mt-1 w-48 rounded-xl border bg-card p-2 shadow-xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
-                                <Link href="/profil" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Tentang Desa</Link>
-                                <Link href="/profil#sejarah" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Sejarah</Link>
-                                <Link href="/profil#visi-misi" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Visi & Misi</Link>
-                                <Link href="/profil#geografis" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Geografis & Demografi</Link>
+                            <div className="absolute left-0 mt-1.5 w-52 rounded-xl border bg-card p-2 shadow-xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+                                <Link href="/profil" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Tentang Desa</Link>
+                                <Link href="/profil#sejarah" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Sejarah</Link>
+                                <Link href="/profil#visi-misi" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Visi & Misi</Link>
+                                <Link href="/profil#geografis" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Geografis & Demografi</Link>
                             </div>
                         </div>
 
                         {/* Pemerintahan Dropdown */}
                         <div className="relative group">
-                            <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold text-foreground/80 hover:text-teal-600 transition">
+                            <button className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg text-[15px] font-bold text-foreground/80 hover:text-teal-600 transition">
                                 Pemerintahan <ChevronDown className="h-4 w-4" />
                             </button>
-                            <div className="absolute left-0 mt-1 w-52 rounded-xl border bg-card p-2 shadow-xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
-                                <Link href="/pemerintahan" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Pemerintah Desa</Link>
-                                <Link href="/pemerintahan/bpd" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">BPD</Link>
-                                <Link href="/pemerintahan/lembaga" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Lembaga Desa</Link>
+                            <div className="absolute left-0 mt-1.5 w-56 rounded-xl border bg-card p-2 shadow-xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+                                <Link href="/pemerintahan" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Pemerintah Desa</Link>
+                                <Link href="/pemerintahan/bpd" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">BPD</Link>
+                                <Link href="/pemerintahan/lembaga" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Lembaga Desa</Link>
                             </div>
                         </div>
 
                         {/* Informasi Dropdown */}
                         <div className="relative group">
-                            <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold text-foreground/80 hover:text-teal-600 transition">
+                            <button className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg text-[15px] font-bold text-foreground/80 hover:text-teal-600 transition">
                                 Informasi Publik <ChevronDown className="h-4 w-4" />
                             </button>
-                            <div className="absolute left-0 mt-1 w-48 rounded-xl border bg-card p-2 shadow-xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
-                                <Link href="/informasi/berita" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Kabar Berita</Link>
-                                <Link href="/informasi/pengumuman" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Pengumuman</Link>
-                                <Link href="/informasi/agenda" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Agenda Kegiatan</Link>
-                                <Link href="/informasi/galeri" className="block px-3 py-2 rounded-lg text-xs font-semibold hover:bg-muted transition">Galeri Foto</Link>
+                            <div className="absolute left-0 mt-1.5 w-52 rounded-xl border bg-card p-2 shadow-xl opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+                                <Link href="/informasi/berita" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Kabar Berita</Link>
+                                <Link href="/informasi/pengumuman" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Pengumuman</Link>
+                                <Link href="/informasi/agenda" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Agenda Kegiatan</Link>
+                                <Link href="/informasi/galeri" className="block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-muted transition">Galeri Foto</Link>
                             </div>
                         </div>
 
                         {/* Layanan */}
-                        <Link href="/layanan" className="px-3 py-2 rounded-lg text-sm font-semibold text-foreground/80 hover:text-teal-600 transition">
+                        <Link href="/layanan" className="px-3.5 py-2.5 rounded-lg text-[15px] font-bold text-foreground/80 hover:text-teal-600 transition">
                             Layanan Online
                         </Link>
 
                         {/* Kontak */}
-                        <Link href="/kontak" className="px-3 py-2 rounded-lg text-sm font-semibold text-foreground/80 hover:text-teal-600 transition">
+                        <Link href="/kontak" className="px-3.5 py-2.5 rounded-lg text-[15px] font-bold text-foreground/80 hover:text-teal-600 transition">
                             Kontak & Buku Tamu
                         </Link>
                     </div>
