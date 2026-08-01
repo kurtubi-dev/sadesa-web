@@ -188,19 +188,19 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
                         {/* Berita List (Left Col - Span 8) */}
                         <div className="lg:col-span-8 space-y-6">
                             <div className="flex justify-between items-center border-b pb-4">
-                                <h2 className="text-2xl font-black text-slate-800 dark:text-zinc-100 flex items-center gap-2">
-                                    <Newspaper className="h-6 w-6 text-teal-600" /> Kabar Desa
+                                <h2 className="text-3xl font-black text-slate-800 dark:text-zinc-100 flex items-center gap-2.5">
+                                    <Newspaper className="h-7 w-7 text-teal-600" /> Kabar Desa
                                 </h2>
-                                <Link href="/informasi/berita" className="text-xs font-bold text-teal-600 hover:text-teal-700 flex items-center gap-1">
-                                    Lihat Semua Berita <ChevronRight className="h-3.5 w-3.5" />
+                                <Link href="/informasi/berita" className="text-sm font-bold text-teal-600 hover:text-teal-700 flex items-center gap-1">
+                                    Lihat Semua Berita <ChevronRight className="h-4 w-4" />
                                 </Link>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {berita.length > 0 ? (
                                     berita.map((item) => (
-                                        <article key={item.id} className="bg-card border rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-1 transition duration-300 flex flex-col h-full">
-                                            <div className="h-44 w-full bg-slate-200 dark:bg-zinc-800 relative overflow-hidden">
+                                        <article key={item.id} className="bg-card border rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition duration-300 flex flex-col h-full">
+                                            <div className="h-52 w-full bg-slate-200 dark:bg-zinc-800 relative overflow-hidden">
                                                 {item.gambar_utama ? (
                                                     <img
                                                         src={`/storage/${item.gambar_utama}`}
@@ -209,27 +209,27 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
                                                     />
                                                 ) : (
                                                     <div className="h-full w-full flex items-center justify-center text-teal-600/30 bg-teal-50 dark:bg-teal-950/20">
-                                                        <Newspaper className="h-10 w-10" />
+                                                        <Newspaper className="h-12 w-12" />
                                                     </div>
                                                 )}
                                             </div>
-                                            <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+                                            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                                                 <div className="space-y-2">
-                                                    <div className="flex items-center gap-2 text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
-                                                        <Clock className="h-3 w-3 text-teal-500" />
+                                                    <div className="flex items-center gap-2 text-slate-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-wider">
+                                                        <Clock className="h-3.5 w-3.5 text-teal-500" />
                                                         <span>{formatDate(item.created_at)}</span>
                                                     </div>
-                                                    <h3 className="font-bold text-base text-slate-800 dark:text-zinc-100 line-clamp-2 hover:text-teal-600 transition leading-snug">
+                                                    <h3 className="font-bold text-lg text-slate-800 dark:text-zinc-100 line-clamp-2 hover:text-teal-600 transition leading-snug">
                                                         <Link href={`/informasi/berita/${item.slug}`}>{item.judul}</Link>
                                                     </h3>
                                                     {item.meta_description && (
-                                                        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                                                        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                                                             {item.meta_description}
                                                         </p>
                                                     )}
                                                 </div>
-                                                <Link href={`/informasi/berita/${item.slug}`} className="text-xs font-bold text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1 pt-2 border-t mt-auto">
-                                                    Baca Selengkapnya <ChevronRight className="h-3 w-3" />
+                                                <Link href={`/informasi/berita/${item.slug}`} className="text-sm font-bold text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1 pt-2.5 border-t mt-auto">
+                                                    Baca Selengkapnya <ChevronRight className="h-3.5 w-3.5" />
                                                 </Link>
                                             </div>
                                         </article>
@@ -243,74 +243,74 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
                         </div>
 
                         {/* Sidebar: Pengumuman & Agenda (Right Col - Span 4) */}
-                        <div className="lg:col-span-4 space-y-8">
+                        <div className="lg:col-span-4 space-y-10">
 
                             {/* Pengumuman */}
-                            <div className="space-y-4">
-                                <div className="border-b pb-3 flex justify-between items-center">
-                                    <h2 className="text-lg font-extrabold text-slate-800 dark:text-zinc-100 flex items-center gap-2">
-                                        <Volume2 className="h-5 w-5 text-amber-500" /> Pengumuman
+                            <div className="space-y-5">
+                                <div className="border-b pb-4 flex justify-between items-center">
+                                    <h2 className="text-xl font-black text-slate-800 dark:text-zinc-100 flex items-center gap-2.5">
+                                        <Volume2 className="h-5.5 w-5.5 text-amber-500" /> Pengumuman
                                     </h2>
-                                    <Link href="/informasi/pengumuman" className="text-xs font-semibold text-teal-600 hover:text-teal-700">
+                                    <Link href="/informasi/pengumuman" className="text-sm font-bold text-teal-600 hover:text-teal-700">
                                         Semua
                                     </Link>
                                 </div>
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                     {pengumuman.length > 0 ? (
                                         pengumuman.map((item) => (
-                                            <div key={item.id} className="bg-card border p-4 rounded-xl shadow-xs hover:border-teal-500/50 transition">
-                                                <span className="text-[9px] font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/20 dark:text-amber-400 rounded-full px-2 py-0.5 uppercase tracking-wider">
+                                            <div key={item.id} className="bg-card border p-5 rounded-2xl shadow-xs hover:border-teal-500/50 transition">
+                                                <span className="text-[10px] font-extrabold text-amber-700 bg-amber-100 dark:bg-amber-900/30 dark:text-amber-400 rounded-full px-3 py-1 uppercase tracking-wider">
                                                     Pengumuman
                                                 </span>
-                                                <h3 className="font-bold text-sm text-slate-800 dark:text-zinc-100 mt-2 hover:text-teal-600 transition line-clamp-2">
+                                                <h3 className="font-bold text-[15px] text-slate-800 dark:text-zinc-100 mt-3.5 hover:text-teal-600 transition line-clamp-2 leading-snug">
                                                     <Link href={`/informasi/berita/${item.slug}`}>{item.judul}</Link>
                                                 </h3>
-                                                <span className="text-[10px] text-muted-foreground mt-2 block font-medium">
+                                                <span className="text-xs text-muted-foreground mt-2 block font-medium">
                                                     {formatDate(item.created_at)}
                                                 </span>
                                             </div>
                                         ))
                                     ) : (
-                                        <p className="text-xs text-muted-foreground text-center py-4">Belum ada pengumuman.</p>
+                                        <p className="text-sm text-muted-foreground text-center py-6">Belum ada pengumuman.</p>
                                     )}
                                 </div>
                             </div>
 
                             {/* Agenda */}
-                            <div className="space-y-4">
-                                <div className="border-b pb-3 flex justify-between items-center">
-                                    <h2 className="text-lg font-extrabold text-slate-800 dark:text-zinc-100 flex items-center gap-2">
-                                        <CalendarDays className="h-5 w-5 text-teal-600" /> Agenda Kegiatan
+                            <div className="space-y-5">
+                                <div className="border-b pb-4 flex justify-between items-center">
+                                    <h2 className="text-xl font-black text-slate-800 dark:text-zinc-100 flex items-center gap-2.5">
+                                        <CalendarDays className="h-5.5 w-5.5 text-teal-600" /> Agenda Kegiatan
                                     </h2>
-                                    <Link href="/informasi/agenda" className="text-xs font-semibold text-teal-600 hover:text-teal-700">
+                                    <Link href="/informasi/agenda" className="text-sm font-bold text-teal-600 hover:text-teal-700">
                                         Semua
                                     </Link>
                                 </div>
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                     {agenda.length > 0 ? (
                                         agenda.map((item) => (
-                                            <div key={item.id} className="bg-card border p-4 rounded-xl shadow-xs hover:border-teal-500/50 transition flex gap-3.5 items-start">
-                                                <div className="bg-teal-50 dark:bg-teal-950/30 text-teal-700 dark:text-teal-400 rounded-xl p-2.5 shrink-0 flex flex-col items-center justify-center h-12 w-12 border">
-                                                    <span className="text-[10px] uppercase font-extrabold leading-none">
+                                            <div key={item.id} className="bg-card border p-5 rounded-2xl shadow-xs hover:border-teal-500/50 transition flex gap-4 items-start">
+                                                <div className="bg-teal-50 dark:bg-teal-950/30 text-teal-700 dark:text-teal-400 rounded-2xl p-2.5 shrink-0 flex flex-col items-center justify-center h-14 w-14 border">
+                                                    <span className="text-[11px] uppercase font-extrabold leading-none">
                                                         {new Date(item.event_tanggal).toLocaleDateString('id-ID', { month: 'short' })}
                                                     </span>
-                                                    <span className="text-base font-black leading-none mt-1">
+                                                    <span className="text-lg font-black leading-none mt-1">
                                                         {new Date(item.event_tanggal).getDate()}
                                                     </span>
                                                 </div>
-                                                <div className="space-y-1 min-w-0">
-                                                    <h3 className="font-bold text-xs text-slate-800 dark:text-zinc-100 hover:text-teal-600 transition line-clamp-2 leading-snug">
+                                                <div className="space-y-1.5 min-w-0 flex-1">
+                                                    <h3 className="font-bold text-[14px] text-slate-800 dark:text-zinc-100 hover:text-teal-600 transition line-clamp-2 leading-snug">
                                                         <Link href={`/informasi/berita/${item.slug}`}>{item.judul}</Link>
                                                     </h3>
-                                                    <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                                                        <MapPin className="h-3 w-3 shrink-0 text-teal-600" />
+                                                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                                        <MapPin className="h-3.5 w-3.5 shrink-0 text-teal-600" />
                                                         <span className="truncate">{item.event_lokasi || 'Kantor Desa'}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
-                                        <p className="text-xs text-muted-foreground text-center py-4">Belum ada agenda terdekat.</p>
+                                        <p className="text-sm text-muted-foreground text-center py-6">Belum ada agenda terdekat.</p>
                                     )}
                                 </div>
                             </div>
