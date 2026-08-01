@@ -84,7 +84,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
     return (
         <PortalLayout title="Beranda" settings={settings as any}>
             {/* Hero Section */}
-            <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 text-white overflow-hidden -mt-8 sm:-mt-16 py-20 px-4">
+            <section className="relative min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 text-white overflow-hidden -mt-24 sm:-mt-32 pt-44 pb-28 px-6 sm:px-8">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10 mix-blend-overlay bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
