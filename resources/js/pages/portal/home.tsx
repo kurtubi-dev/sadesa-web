@@ -1,13 +1,10 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import {
-    Calendar,
     ChevronRight,
-    FileText,
     MapPin,
     Newspaper,
     ArrowRight,
     Clock,
-    Eye,
     Award,
     Shield,
     Heart,
@@ -70,7 +67,7 @@ interface Props {
     kades: Pejabat | null;
 }
 
-export default function Home({ settings, berita, pengumuman, agenda, featured, kades }: Props) {
+export default function Home({ settings, berita, pengumuman, agenda, kades }: Props) {
     const desaName = settings.kop_nama_desa || 'CIRANGKONG';
     const kadesName = kades?.nama || settings.kades_nama || 'Asep Sutia';
     const kadesFoto = kades?.foto ? `/storage/${kades.foto}` : '/images/default-kades.png';
@@ -78,6 +75,7 @@ export default function Home({ settings, berita, pengumuman, agenda, featured, k
     // Format date Indonesian style
     const formatDate = (dateStr: string) => {
         const d = new Date(dateStr);
+
         return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
     };
 

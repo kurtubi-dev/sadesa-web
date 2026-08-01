@@ -58,7 +58,7 @@ function PejabatModal({ pejabat, onClose }: { pejabat: Pejabat | null; onClose: 
     const isEdit = pejabat !== null;
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, processing, errors } = useForm({
         nama: pejabat?.nama ?? '',
         jabatan: pejabat?.jabatan ?? '',
         kategori: pejabat?.kategori ?? 'perangkat_desa',
@@ -73,6 +73,7 @@ function PejabatModal({ pejabat, onClose }: { pejabat: Pejabat | null; onClose: 
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+
         if (file) {
             setData('foto', file);
             setImagePreview(URL.createObjectURL(file));
@@ -89,6 +90,7 @@ function PejabatModal({ pejabat, onClose }: { pejabat: Pejabat | null; onClose: 
         formData.append('kategori', data.kategori);
         formData.append('kontak', data.kontak);
         formData.append('urutan', String(data.urutan));
+
         if (data.foto) {
             formData.append('foto', data.foto);
         }
@@ -259,9 +261,11 @@ export default function AdminPejabat({ pejabat, filters, flash }: Props) {
 
     const applyFilter = (key: string, val: string) => {
         const nextFilters = { ...filters, [key]: val };
+
         if (!val) {
             delete nextFilters[key as keyof typeof filters];
         }
+
         router.get('/admin/pejabat', nextFilters, { preserveState: true });
     };
 
@@ -271,7 +275,10 @@ export default function AdminPejabat({ pejabat, filters, flash }: Props) {
     };
 
     const handleDelete = (item: Pejabat) => {
-        if (!confirm(`Hapus data ${item.nama} (${item.jabatan})? Tindakan ini tidak dapat dibatalkan.`)) return;
+        if (!confirm(`Hapus data ${item.nama} (${item.jabatan})? Tindakan ini tidak dapat dibatalkan.`)) {
+return;
+}
+
         router.delete(`/admin/pejabat/${item.id}`);
     };
 
@@ -477,6 +484,7 @@ export default function AdminPejabat({ pejabat, filters, flash }: Props) {
                                             </button>
                                         );
                                     }
+
                                     if (link.label.includes('Next')) {
                                         return (
                                             <button
@@ -489,6 +497,7 @@ export default function AdminPejabat({ pejabat, filters, flash }: Props) {
                                             </button>
                                         );
                                     }
+
                                     return (
                                         <button
                                             key={idx}

@@ -1,5 +1,5 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight, Pencil, Search, Trash2, UserCheck } from 'lucide-react';
+import { Pencil, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -139,7 +139,10 @@ export default function AdminUsers({ users, filters }: Props) {
     };
 
     const handleDelete = (user: User) => {
-        if (!confirm(`Hapus akun ${user.name}? Tindakan tidak dapat dibatalkan.`)) return;
+        if (!confirm(`Hapus akun ${user.name}? Tindakan tidak dapat dibatalkan.`)) {
+return;
+}
+
         router.delete(`/admin/users/${user.id}`);
     };
 

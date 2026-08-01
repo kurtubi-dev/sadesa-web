@@ -79,6 +79,7 @@ function WilayahModal({
             ...data,
             parent_id: data.parent_id || null,
         };
+
         if (mode === 'create') {
             post('/admin/wilayah', { data: payload, onSuccess: onClose });
         } else {
@@ -191,6 +192,7 @@ function KategoriModal({
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (mode === 'create') {
             post('/admin/kategori-aduan', { onSuccess: onClose });
         } else {
@@ -263,6 +265,7 @@ function DeleteConfirm({
     label: string; url: string; blocked?: boolean; blockedMsg?: string; onClose: () => void;
 }) {
     const [processing, setProcessing] = useState(false);
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
             <div className="w-full max-w-sm rounded-xl bg-background p-6 shadow-xl">
@@ -287,7 +290,9 @@ function DeleteConfirm({
                         disabled={processing || blocked}
                         onClick={() => {
                             setProcessing(true);
-                            router.delete(url, { onFinish: () => { setProcessing(false); onClose(); } });
+                            router.delete(url, { onFinish: () => {
+ setProcessing(false); onClose(); 
+} });
                         }}
                         className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-40">
                         {processing ? 'Menghapus...' : 'Hapus'}

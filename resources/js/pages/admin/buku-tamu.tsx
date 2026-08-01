@@ -1,7 +1,7 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { BookOpen, CalendarDays, Download, QrCode, Search, Users } from 'lucide-react';
-import { useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import { useRef, useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
@@ -82,7 +82,11 @@ function QrCard() {
 
     const handlePrint = () => {
         const win = window.open('', '_blank', 'width=480,height=640');
-        if (!win) return;
+
+        if (!win) {
+return;
+}
+
         win.document.write(`
             <!DOCTYPE html>
             <html lang="id">
@@ -105,7 +109,7 @@ function QrCard() {
                     <div id="qr"></div>
                     <div class="url">${formUrl}</div>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"><\/script>
+                <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
                 <script>
                     QRCode.toCanvas(document.createElement('canvas'), '${formUrl}', { width: 256, margin: 2 }, function(err, canvas) {
                         if (!err) {
@@ -113,7 +117,7 @@ function QrCard() {
                             setTimeout(() => window.print(), 400);
                         }
                     });
-                <\/script>
+                </script>
             </body>
             </html>
         `);
@@ -177,7 +181,11 @@ export default function AdminBukuTamu({ entries, filters, stats }: Props) {
 
     const handleSearch = (val: string) => {
         setSearch(val);
-        if (searchRef.current) clearTimeout(searchRef.current);
+
+        if (searchRef.current) {
+clearTimeout(searchRef.current);
+}
+
         searchRef.current = setTimeout(() => applyFilter({ search: val }), 400);
     };
 

@@ -48,8 +48,12 @@ const ROLE_LABEL: Record<string, string> = {
 };
 
 function shortModel(model: string | null): string {
-    if (!model) return '—';
+    if (!model) {
+return '—';
+}
+
     const parts = model.split('\\');
+
     return parts[parts.length - 1];
 }
 
@@ -101,7 +105,9 @@ export default function AdminAuditLog({ logs, filters }: Props) {
                     {(filters.search || filters.date) && (
                         <button
                             type="button"
-                            onClick={() => { setSearch(''); setDate(''); router.get('/admin/audit-log'); }}
+                            onClick={() => {
+ setSearch(''); setDate(''); router.get('/admin/audit-log'); 
+}}
                             className="rounded-lg border px-3 py-2 text-sm text-muted-foreground hover:bg-muted"
                         >
                             Reset

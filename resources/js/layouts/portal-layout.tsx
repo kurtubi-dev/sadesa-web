@@ -1,28 +1,17 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import {
-    Facebook,
-    Instagram,
     Mail,
     MapPin,
     Menu,
     Phone,
     X,
-    Youtube,
     ChevronDown,
     Moon,
     Sun,
     Monitor,
-    ChevronRight,
-    Users,
-    Newspaper,
-    Calendar,
-    Image,
-    FileText,
-    Building2
+    ChevronRight
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { dashboard, login, register } from '@/routes';
-import { useAppearance } from '@/hooks/use-appearance';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -30,6 +19,8 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAppearance } from '@/hooks/use-appearance';
+import { dashboard, login } from '@/routes';
 
 interface Settings {
     kop_nama_desa?: string;
@@ -49,10 +40,10 @@ interface Props extends Record<string, any> {
 }
 
 export default function PortalLayout({ children, title, settings: propSettings }: { children: React.ReactNode; title?: string; settings?: any }) {
-    const { auth, canRegister, settings: pageSettings = {} } = usePage<Props>().props;
+    const { auth, settings: pageSettings = {} } = usePage<Props>().props;
     const settings = propSettings || pageSettings;
     const user = auth?.user ?? null;
-    const { appearance, updateAppearance } = useAppearance();
+    const { updateAppearance } = useAppearance();
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -63,6 +54,7 @@ export default function PortalLayout({ children, title, settings: propSettings }
     useEffect(() => {
         const handler = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handler);
+
         return () => window.removeEventListener('scroll', handler);
     }, []);
 
@@ -105,7 +97,9 @@ export default function PortalLayout({ children, title, settings: propSettings }
                             src={logoUrl} 
                             alt={`Logo Desa ${desaName}`} 
                             className="h-11 w-11 object-contain shrink-0" 
-                            onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-cirangkong-icon.png'; }}
+                            onError={(e) => {
+ (e.target as HTMLImageElement).src = '/images/logo-cirangkong-icon.png'; 
+}}
                         />
                         <div className="leading-tight">
                             <span className="text-lg font-extrabold tracking-tight text-slate-800 dark:text-zinc-100">Desa {desaName}</span>
@@ -334,7 +328,9 @@ export default function PortalLayout({ children, title, settings: propSettings }
                                     src={logoUrl} 
                                     alt={`Logo Desa ${desaName}`} 
                                     className="h-12 w-12 object-contain shrink-0 filter brightness-110" 
-                                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-cirangkong-icon.png'; }}
+                                    onError={(e) => {
+ (e.target as HTMLImageElement).src = '/images/logo-cirangkong-icon.png'; 
+}}
                                 />
                                 <div className="leading-tight">
                                     <span className="text-lg font-bold text-white tracking-tight">Desa {desaName}</span>

@@ -93,6 +93,7 @@ function SuratModal({
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (mode === 'create') {
             post('/admin/master-surat', { onSuccess: onClose });
         } else {
@@ -274,8 +275,11 @@ function DeleteConfirm({ surat, onClose }: { surat: MasterSurat; onClose: () => 
     const [processing, setProcessing] = useState(false);
     const handleDelete = () => {
         setProcessing(true);
-        router.delete(`/admin/master-surat/${surat.id}`, { onFinish: () => { setProcessing(false); onClose(); } });
+        router.delete(`/admin/master-surat/${surat.id}`, { onFinish: () => {
+ setProcessing(false); onClose(); 
+} });
     };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
             <div className="w-full max-w-md rounded-2xl bg-background p-6 shadow-xl">

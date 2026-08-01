@@ -4,10 +4,10 @@
  * Controller: App\Http\Controllers\DashboardController
  */
 import { Head } from '@inertiajs/react';
+import { Users, ShieldCheck, FileCheck, MessageSquare, TrendingUp, Calendar, ChevronRight } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { Users, ShieldCheck, FileCheck, MessageSquare, TrendingUp, Calendar, ChevronRight } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: dashboard() }];
 

@@ -1,5 +1,4 @@
-import { Head } from '@inertiajs/react';
-import { useState, useEffect } from 'react';
+import { Link } from '@inertiajs/react';
 import { 
     BookOpen, 
     Compass, 
@@ -8,6 +7,7 @@ import {
     MapPin,
     ArrowRight
 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import PortalLayout from '@/layouts/portal-layout';
 
 interface Settings {
@@ -31,10 +31,19 @@ export default function Profil({ settings }: Props) {
     // Handle hash anchors on mount or click
     useEffect(() => {
         const hash = window.location.hash;
-        if (hash === '#sejarah') setActiveTab('sejarah');
-        else if (hash === '#visi-misi') setActiveTab('visi-misi');
-        else if (hash === '#geografis') setActiveTab('geografis');
-        else if (hash === '#demografi') setActiveTab('demografi');
+        const timer = setTimeout(() => {
+            if (hash === '#sejarah') {
+                setActiveTab('sejarah');
+            } else if (hash === '#visi-misi') {
+                setActiveTab('visi-misi');
+            } else if (hash === '#geografis') {
+                setActiveTab('geografis');
+            } else if (hash === '#demografi') {
+                setActiveTab('demografi');
+            }
+        }, 0);
+
+        return () => clearTimeout(timer);
     }, []);
 
     const handleTabChange = (tab: typeof activeTab) => {
@@ -208,4 +217,3 @@ export default function Profil({ settings }: Props) {
 }
 
 // Sub-component for Link
-import { Link } from '@inertiajs/react';

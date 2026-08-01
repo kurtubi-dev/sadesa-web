@@ -66,7 +66,9 @@ export default function AdminPengajuan({ pengajuan, filters }: Props) {
 
                 {/* Filter */}
                 <div className="flex flex-wrap gap-3">
-                    <form onSubmit={e => { e.preventDefault(); applyFilter({ search }); }} className="flex gap-2">
+                    <form onSubmit={e => {
+ e.preventDefault(); applyFilter({ search }); 
+}} className="flex gap-2">
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                             <input value={search} onChange={e => setSearch(e.target.value)}

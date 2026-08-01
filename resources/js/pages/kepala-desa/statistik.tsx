@@ -57,6 +57,7 @@ const TONE: Record<string, { bg: string; text: string; bar: string }> = {
 
 function TrendChart({ data }: { data: TrendPoint[] }) {
     const max = Math.max(...data.flatMap(d => [d.masuk, d.selesai, d.ditolak]), 1);
+
     return (
         <div>
             <div className="flex items-end gap-2" style={{ height: 160 }}>
@@ -215,6 +216,7 @@ export default function StatistikLayanan({ trend, status_breakdown, top_jenis_su
                                 const t = TONE[s.tone] ?? TONE.teal;
                                 const total = status_breakdown.reduce((a, b) => a + b.jumlah, 0) || 1;
                                 const pct = Math.round((s.jumlah / total) * 100);
+
                                 return (
                                     <div key={i} className="flex items-center gap-3">
                                         <span className="w-32 shrink-0 text-xs font-medium text-muted-foreground">{s.label}</span>

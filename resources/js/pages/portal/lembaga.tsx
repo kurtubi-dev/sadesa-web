@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Phone } from 'lucide-react';
 import PortalLayout from '@/layouts/portal-layout';
 

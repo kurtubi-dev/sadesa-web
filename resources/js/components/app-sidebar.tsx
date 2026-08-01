@@ -7,7 +7,6 @@ import {
     FileBadge,
     FileCheck,
     FileText,
-    History,
     LayoutDashboard,
     ListOrdered,
     Map,
@@ -15,7 +14,6 @@ import {
     Newspaper,
     NotebookPen,
     Printer,
-    ScrollText,
     Send,
     Settings,
 

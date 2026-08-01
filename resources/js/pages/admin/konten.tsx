@@ -1,12 +1,12 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { Pencil, Plus, Search, Trash2, X, Image as ImageIcon, FileText as PdfIcon, Calendar as CalendarIcon, MapPin as MapPinIcon, Globe as GlobeIcon } from 'lucide-react';
+import axios from 'axios';
+import { Pencil, Plus, Search, Trash2, Image as ImageIcon, FileText as PdfIcon, Calendar as CalendarIcon, Globe as GlobeIcon } from 'lucide-react';
+import Quill from 'quill';
 import { useState, useEffect, useRef } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
-import axios from 'axios';
 
 interface KontenItem {
     id: number;
@@ -72,6 +72,7 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+
         if (file) {
             form.setData('gambar_utama', file);
             setImagePreview(URL.createObjectURL(file));
@@ -80,14 +81,20 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
 
     const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+
         if (file) {
             form.setData('lampiran_pdf', file);
         }
     };
 
     useEffect(() => {
-        if (!editorRef.current) return;
-        if (editorRef.current.querySelector('.ql-editor')) return;
+        if (!editorRef.current) {
+return;
+}
+
+        if (editorRef.current.querySelector('.ql-editor')) {
+return;
+}
 
         const quill = new Quill(editorRef.current, {
             theme: 'snow',
@@ -124,10 +131,14 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
 
             input.onchange = async () => {
                 const file = input.files?.[0];
-                if (!file) return;
+
+                if (!file) {
+return;
+}
 
                 if (file.size > 5 * 1024 * 1024) {
                     alert('Ukuran gambar terlalu besar (maksimal 5MB)');
+
                     return;
                 }
 
@@ -143,6 +154,7 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
 
                     if (response.data && response.data.url) {
                         const range = quill.getSelection();
+
                         if (range) {
                             quill.insertEmbed(range.index, 'image', response.data.url);
                             quill.setSelection(range.index + 1);
@@ -156,15 +168,19 @@ function KontenForm({ editData, onClose }: { editData: KontenItem | null; onClos
         };
 
         quill.getModule('toolbar').addHandler('image', selectLocalImage);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const submitWithStatus = (newStatus: 'draft' | 'published') => {
         if (!form.data.judul.trim()) {
             form.setError('judul', 'Judul wajib diisi');
+
             return;
         }
+
         if (!form.data.konten.trim() || form.data.konten === '<p><br></p>') {
             form.setError('konten', 'Konten wajib diisi');
+
             return;
         }
 
@@ -439,7 +455,10 @@ export default function AdminKonten({ konten, filters }: Props) {
         router.get('/admin/konten', { ...filters, ...extra }, { preserveState: true });
 
     const handleDelete = (item: KontenItem) => {
-        if (!confirm(`Hapus konten "${item.judul}"?`)) return;
+        if (!confirm(`Hapus konten "${item.judul}"?`)) {
+return;
+}
+
         router.delete(`/admin/konten/${item.id}`);
     };
 
@@ -467,7 +486,9 @@ export default function AdminKonten({ konten, filters }: Props) {
 
                     {/* Filter */}
                     <div className="flex flex-wrap gap-3">
-                        <form onSubmit={e => { e.preventDefault(); applyFilter({ search }); }} className="flex gap-2">
+                        <form onSubmit={e => {
+ e.preventDefault(); applyFilter({ search }); 
+}} className="flex gap-2">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                                 <input value={search} onChange={e => setSearch(e.target.value)}

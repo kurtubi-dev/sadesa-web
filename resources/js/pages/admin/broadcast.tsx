@@ -1,6 +1,5 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { Bell, CheckCircle, Megaphone, Send, Users } from 'lucide-react';
-import { useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';

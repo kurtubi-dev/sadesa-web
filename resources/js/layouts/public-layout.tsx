@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     Facebook,
     Instagram,
@@ -14,8 +14,6 @@ import {
     Monitor,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { dashboard, login, register } from '@/routes';
-import { useAppearance } from '@/hooks/use-appearance';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -23,16 +21,13 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAppearance } from '@/hooks/use-appearance';
+import { dashboard, login, register } from '@/routes';
 
-interface PageProps {
-    auth: { user: { name: string } | null };
-    canRegister?: boolean;
-}
-
-export default function PublicLayout({ children, title }: { children: React.ReactNode; title?: string }) {
+export default function PublicLayout({ children }: { children: React.ReactNode; title?: string }) {
     const { auth, canRegister } = usePage<any>().props;
     const user = auth?.user ?? null;
-    const { appearance, updateAppearance } = useAppearance();
+    const { updateAppearance } = useAppearance();
 
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -40,6 +35,7 @@ export default function PublicLayout({ children, title }: { children: React.Reac
     useEffect(() => {
         const handler = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handler);
+
         return () => window.removeEventListener('scroll', handler);
     }, []);
 

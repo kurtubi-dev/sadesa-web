@@ -15,16 +15,13 @@ import {
     Phone,
     QrCode,
     Shield,
-    ShieldCheck,
-    FileCheck,
-    MessageSquare,
     Users,
     X,
     Youtube,
     Zap,
 } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import { useEffect, useState } from 'react';
 import { dashboard, login, register } from '@/routes';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -36,9 +33,11 @@ interface PageProps {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
+/*
 function formatRupiah(n: number): string {
     return 'Rp ' + n.toLocaleString('id-ID') + ',-';
 }
+*/
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 
@@ -49,6 +48,7 @@ function Navbar({ user, canRegister }: { user: PageProps['auth']['user']; canReg
     useEffect(() => {
         const handler = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handler);
+
         return () => window.removeEventListener('scroll', handler);
     }, []);
 
@@ -145,7 +145,7 @@ function Navbar({ user, canRegister }: { user: PageProps['auth']['user']; canReg
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-function Hero({ user, canRegister }: { user: PageProps['auth']['user']; canRegister: boolean }) {
+function Hero({ user }: { user: PageProps['auth']['user'] }) {
     return (
         <section id="beranda" className="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-900">
             {/* Background pattern */}
@@ -401,6 +401,7 @@ function ProfilDesa() {
     );
 }
 
+/*
 // ─── Transparansi ─────────────────────────────────────────────────────────────
 
 function Transparansi() {
@@ -417,98 +418,76 @@ function Transparansi() {
         { label: 'Pemberdayaan Masyarakat', value: 95_000_000, total: 1_245_000_000 },
         { label: 'Penanggulangan Bencana', value: 25_000_000, total: 1_245_000_000 },
     ];
-    const program = [
-        { judul: 'Pembangunan Jalan Desa', status: 'Dalam Pelaksanaan', progress: 65, anggaran: 250_000_000, color: 'bg-blue-500' },
-        { judul: 'Pengadaan Air Bersih', status: 'Perencanaan', progress: 20, anggaran: 150_000_000, color: 'bg-amber-500' },
-        { judul: 'Pemberdayaan UMKM', status: 'Berjalan', progress: 80, anggaran: 75_000_000, color: 'bg-teal-500' },
-    ];
+
+    const formatPercent = (val: number, total: number) => {
+        return ((val / total) * 100).toFixed(1) + '%';
+    };
 
     return (
-        <section id="transparansi" className="bg-muted py-24">
+        <section id="transparansi" className="bg-slate-50 py-24 dark:bg-zinc-900/50">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="mb-14 text-center">
+                <div className="mb-16 text-center">
                     <div className="mb-3 inline-block rounded-full bg-teal-50 px-4 py-1.5 text-sm font-semibold text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
-                        Transparansi
+                        Akuntabilitas & Transparansi
                     </div>
-                    <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl">
-                        Transparansi Anggaran & Program
+                    <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+                        Realisasi APBDes Tahun Anggaran 2025
                     </h2>
-                    <p className="text-base text-muted-foreground">Keterbukaan informasi untuk akuntabilitas yang lebih baik</p>
+                    <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground leading-relaxed">
+                        Bentuk pertanggungjawaban terbuka Pemerintah Desa Cirangkong dalam pengelolaan Anggaran Pendapatan dan Belanja Desa (APBDes) untuk pembangunan kemaslahatan bersama.
+                    </p>
                 </div>
 
-                <div className="grid gap-8 lg:grid-cols-3">
-                    {/* APBDes */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                            <div className="mb-4 flex items-center justify-between">
-                                <h3 className="font-bold text-foreground">APBDes Tahun 2025</h3>
-                                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
-                                    Total: Rp 1,245 M
-                                </span>
-                            </div>
-
-                            <div className="mb-5">
-                                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Pendapatan</p>
-                                <div className="space-y-2">
-                                    {pendapatan.map((p, i) => (
-                                        <div key={i}>
-                                            <div className="mb-1 flex justify-between text-xs">
-                                                <span className="text-muted-foreground">{p.label}</span>
-                                                <span className="font-medium text-foreground">{formatRupiah(p.value)}</span>
-                                            </div>
-                                            <div className="h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
-                                                <div className="h-full rounded-full bg-teal-500 transition-all"
-                                                    style={{ width: `${(p.value / p.total) * 100}%` }} />
-                                            </div>
-                                        </div>
-                                    ))}
+                <div className="grid gap-8 lg:grid-cols-2">
+                    {/ * Pendapatan * /}
+                    <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+                        <div className="mb-6 flex items-center justify-between border-b pb-4">
+                            <h3 className="text-lg font-bold text-foreground">Pendapatan Desa</h3>
+                            <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
+                                Target: {formatRupiah(1_245_000_000)}
+                            </span>
+                        </div>
+                        <div className="space-y-6">
+                            {pendapatan.map((item, index) => (
+                                <div key={index}>
+                                    <div className="mb-2 flex items-center justify-between text-xs font-bold text-foreground uppercase tracking-wider">
+                                        <span>{item.label}</span>
+                                        <span>{formatPercent(item.value, item.total)}</span>
+                                    </div>
+                                    <div className="h-2 w-full rounded-full bg-muted">
+                                        <div className="h-2 rounded-full bg-teal-600" style={{ width: formatPercent(item.value, item.total) }} />
+                                    </div>
+                                    <span className="mt-1 block text-right text-[10px] font-semibold text-muted-foreground">
+                                        {formatRupiah(item.value)}
+                                    </span>
                                 </div>
-                            </div>
-
-                            <div>
-                                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Belanja</p>
-                                <div className="space-y-2">
-                                    {belanja.map((b, i) => (
-                                        <div key={i}>
-                                            <div className="mb-1 flex justify-between text-xs">
-                                                <span className="text-muted-foreground">{b.label}</span>
-                                                <span className="font-medium text-foreground">{formatRupiah(b.value)}</span>
-                                            </div>
-                                            <div className="h-1.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
-                                                <div className="h-full rounded-full bg-blue-500 transition-all"
-                                                    style={{ width: `${(b.value / b.total) * 100}%` }} />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Program Prioritas */}
-                    <div>
-                        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                            <h3 className="mb-4 font-bold text-foreground">Program Prioritas 2025</h3>
-                            <div className="space-y-5">
-                                {program.map((p, i) => (
-                                    <div key={i}>
-                                        <div className="mb-1.5 flex items-start justify-between gap-2">
-                                            <p className="text-sm font-semibold text-foreground">{p.judul}</p>
-                                            <span className="shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-400">
-                                                {p.status}
-                                            </span>
-                                        </div>
-                                        <div className="mb-1 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
-                                            <div className={`h-full rounded-full ${p.color} transition-all`}
-                                                style={{ width: `${p.progress}%` }} />
-                                        </div>
-                                        <div className="flex justify-between text-xs text-muted-foreground">
-                                            <span>{p.progress}% selesai</span>
-                                            <span>{formatRupiah(p.anggaran)}</span>
-                                        </div>
+                    {/ * Belanja * /}
+                    <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+                        <div className="mb-6 flex items-center justify-between border-b pb-4">
+                            <h3 className="text-lg font-bold text-foreground">Belanja Desa</h3>
+                            <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                                Realisasi: {formatRupiah(1_245_000_000)}
+                            </span>
+                        </div>
+                        <div className="space-y-6">
+                            {belanja.map((item, index) => (
+                                <div key={index}>
+                                    <div className="mb-2 flex items-center justify-between text-xs font-bold text-foreground uppercase tracking-wider">
+                                        <span>{item.label}</span>
+                                        <span>{formatPercent(item.value, item.total)}</span>
                                     </div>
-                                ))}
-                            </div>
+                                    <div className="h-2 w-full rounded-full bg-muted">
+                                        <div className="h-2 rounded-full bg-blue-600" style={{ width: formatPercent(item.value, item.total) }} />
+                                    </div>
+                                    <span className="mt-1 block text-right text-[10px] font-semibold text-muted-foreground">
+                                        {formatRupiah(item.value)}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -520,7 +499,6 @@ function Transparansi() {
 // ─── Statistik ────────────────────────────────────────────────────────────────
 
 function Statistik() {
-    // Data dummy untuk simulasi statistik desa sesuai desain dashboard
     const stats = [
         { label: 'Total Penduduk', value: '3,842', trend: '+2.4%', icon: Users },
         { label: 'Warga Terverifikasi', value: '2,150', trend: '+12%', icon: ShieldCheck },
@@ -537,64 +515,56 @@ function Statistik() {
     return (
         <section id="statistik" className="bg-background py-24">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="mb-14 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-                    <div>
-                        <div className="mb-3 inline-block rounded-full bg-teal-50 px-4 py-1.5 text-sm font-semibold text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
-                            Data & Statistik
-                        </div>
-                        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-                            Monitoring Layanan Desa
-                        </h2>
+                <div className="mb-16 text-center">
+                    <div className="mb-3 inline-block rounded-full bg-teal-50 px-4 py-1.5 text-sm font-semibold text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
+                        Kependudukan & Pelayanan
                     </div>
+                    <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+                        Statistik & Aktivitas Pelayanan
+                    </h2>
+                    <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground leading-relaxed">
+                        Dashboard transparansi data kependudukan dan intensitas pengajuan administrasi pelayanan di Desa Cirangkong secara real-time.
+                    </p>
                 </div>
 
-                <div className="grid gap-6 lg:grid-cols-12">
-                    {/* Stat Cards (Right side/Top in mobile) */}
-                    <div className="grid gap-4 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
+                <div className="grid gap-8 lg:grid-cols-12">
+                    {/ * Grid 4 kolom untuk stats * /}
+                    <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
                         {stats.map((s, i) => (
-                            <div key={i} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:shadow-md">
-                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400">
-                                    <s.icon className="h-6 w-6" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-medium text-muted-foreground">{s.label}</p>
-                                    <div className="flex items-baseline gap-2">
-                                        <p className="text-xl font-bold text-foreground">{s.value}</p>
-                                        <span className={`text-[10px] font-bold ${s.trend.startsWith('+') ? 'text-emerald-600' : 'text-amber-600'}`}>
-                                            {s.trend}
-                                        </span>
+                            <div key={i} className="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest leading-none">{s.label}</span>
+                                    <div className="rounded-xl bg-teal-50 p-2 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400">
+                                        <s.icon className="h-5 w-5" />
                                     </div>
+                                </div>
+                                <div className="mt-4 flex items-baseline gap-2">
+                                    <span className="text-3xl font-extrabold tracking-tight text-foreground">{s.value}</span>
+                                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{s.trend}</span>
                                 </div>
                             </div>
                         ))}
-                    </div>
 
-                    {/* Chart Area (Main/Left side) */}
-                    <div className="lg:col-span-8">
-                        <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-8 shadow-sm">
-                            <div className="mb-8 flex items-center justify-between">
+                        {/ * Chart * /}
+                        <div className="flex flex-col rounded-3xl border border-border bg-card p-6 shadow-sm sm:col-span-2">
+                            <div className="mb-6 flex items-center justify-between">
                                 <div>
-                                    <h3 className="font-bold text-foreground">Aktivitas Pelayanan</h3>
-                                    <p className="text-xs text-muted-foreground">Statistik pengajuan surat 6 bulan terakhir</p>
+                                    <h3 className="text-sm font-bold text-foreground">Grafik Pengajuan Surat</h3>
+                                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">6 Bulan Terakhir</p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-muted-foreground">
-                                        <span className="h-2 w-2 rounded-full bg-teal-500"></span> Pengajuan
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-muted-foreground">
-                                        <span className="h-2 w-2 rounded-full bg-blue-500"></span> Selesai
-                                    </div>
-                                </div>
+                                <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-[10px] font-bold text-teal-700 dark:bg-teal-900/30 dark:text-teal-300">
+                                    Total: 1,840
+                                </span>
                             </div>
 
-                            {/* Simulated Chart with SVG */}
+                            {/ * Simulated Chart with SVG * /}
                             <div className="relative mt-auto flex-1 min-h-[250px]">
                                 <svg className="h-full w-full overflow-visible" preserveAspectRatio="none">
-                                    {/* Grid lines */}
+                                    {/ * Grid lines * /}
                                     {[0, 1, 2, 3, 4].map((i) => (
                                         <line key={i} x1="0" y1={`${i * 25}%`} x2="100%" y2={`${i * 25}%`} className="stroke-border" strokeDasharray="4 4" />
                                     ))}
-                                    {/* Line Graph 1 */}
+                                    {/ * Line Graph 1 * /}
                                     <path
                                         d="M 0 180 Q 150 150 300 190 T 600 100 T 900 130 T 1200 80"
                                         fill="none"
@@ -603,7 +573,7 @@ function Statistik() {
                                         className="text-teal-500"
                                         vectorEffect="non-scaling-stroke"
                                     />
-                                    {/* Line Graph 2 */}
+                                    {/ * Line Graph 2 * /}
                                     <path
                                         d="M 0 220 Q 150 200 300 230 T 600 160 T 900 180 T 1200 140"
                                         fill="none"
@@ -613,20 +583,12 @@ function Statistik() {
                                         vectorEffect="non-scaling-stroke"
                                     />
                                 </svg>
-                                <div className="mt-4 flex justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-                                    <span>Jan</span>
-                                    <span>Feb</span>
-                                    <span>Mar</span>
-                                    <span>Apr</span>
-                                    <span>Mei</span>
-                                    <span>Jun</span>
-                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Recent Activity (Full width bottom or separate column) */}
-                    <div className="lg:col-span-12">
+                    {/ * Recent Activity (Full width bottom or separate column) * /}
+                    <div className="lg:col-span-4">
                         <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
                             <h3 className="mb-5 text-sm font-bold text-foreground">Aktivitas Terakhir</h3>
                             <div className="space-y-4">
@@ -652,6 +614,7 @@ function Statistik() {
         </section>
     );
 }
+*/
 
 // ─── Berita ───────────────────────────────────────────────────────────────────
 
@@ -947,7 +910,7 @@ export default function Welcome({ canRegister = true, berita = [] }: { canRegist
             <Head title="SADESA — Sahabat Digital Desa Cirangkong" />
             <div className="font-sans antialiased">
                 <Navbar user={user} canRegister={canRegister} />
-                <Hero user={user} canRegister={canRegister} />
+                <Hero user={user} />
                 <Tentang />
                 <Fitur />
                 <ProfilDesa />

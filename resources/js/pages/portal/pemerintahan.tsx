@@ -1,5 +1,5 @@
-import { Head, Link } from '@inertiajs/react';
-import { Mail, Phone, UserCheck, Users, Calendar } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { Phone } from 'lucide-react';
 import PortalLayout from '@/layouts/portal-layout';
 
 interface Pejabat {

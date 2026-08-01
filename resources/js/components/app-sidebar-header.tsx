@@ -1,7 +1,7 @@
 import { usePage } from '@inertiajs/react';
+import axios from 'axios';
 import { Bell, HelpCircle, Search, CheckCheck, FileText, Megaphone } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types';
@@ -23,6 +23,7 @@ const AVATAR_COLORS = [
 
 function avatarStyle(name: string) {
     const idx = (name.charCodeAt(0) + (name.charCodeAt(1) || 0)) % AVATAR_COLORS.length;
+
     return AVATAR_COLORS[idx];
 }
 
@@ -56,6 +57,7 @@ function NotificationBell({ role }: { role: string }) {
             // Tampilkan browser notification jika ada notif baru
             if (newCount > prevCount.current && prevCount.current > 0) {
                 const latest: NotifItem = res.data.data[0];
+
                 if (latest && 'Notification' in window && Notification.permission === 'granted') {
                     new Notification(latest.title, {
                         body: latest.body,
@@ -63,6 +65,7 @@ function NotificationBell({ role }: { role: string }) {
                     });
                 }
             }
+
             prevCount.current = newCount;
             setCount(newCount);
             setItems(res.data.data);
@@ -70,15 +73,20 @@ function NotificationBell({ role }: { role: string }) {
     };
 
     useEffect(() => {
-        if (!['admin', 'staff'].includes(role)) return;
+        if (!['admin', 'staff'].includes(role)) {
+return;
+}
 
         // Minta izin notifikasi browser
         if ('Notification' in window && Notification.permission === 'default') {
             Notification.requestPermission();
         }
 
-        fetchNotifs();
+        setTimeout(() => {
+            fetchNotifs();
+        }, 0);
         const interval = setInterval(fetchNotifs, 300_000);
+
         return () => clearInterval(interval);
     }, [role]);
 
@@ -90,6 +98,7 @@ function NotificationBell({ role }: { role: string }) {
             }
         };
         document.addEventListener('mousedown', handler);
+
         return () => document.removeEventListener('mousedown', handler);
     }, []);
 
@@ -147,7 +156,11 @@ function NotificationBell({ role }: { role: string }) {
                                 className="flex cursor-pointer items-start gap-3 px-4 py-3 hover:bg-muted/50"
                                 onClick={() => {
                                     markRead(n.id);
-                                    if (n.action_url) window.location.href = n.action_url;
+
+                                    if (n.action_url) {
+window.location.href = n.action_url;
+}
+
                                     setOpen(false);
                                 }}
                             >

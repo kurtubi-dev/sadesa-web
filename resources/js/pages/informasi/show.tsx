@@ -34,9 +34,13 @@ interface Props {
 }
 
 const getReadTime = (html: string) => {
-    if (!html) return 0;
+    if (!html) {
+return 0;
+}
+
     const plain = html.replace(/<[^>]*>/g, ' ');
     const words = plain.split(/\s+/).length;
+
     return Math.ceil(words / 200); // 200 words per minute average
 };
 

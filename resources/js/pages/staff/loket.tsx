@@ -1,12 +1,12 @@
 import { Head, router, usePage } from '@inertiajs/react';
 import { ConciergeBell, IdCard, Loader2, Search, Send, User, Users, X } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
-import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 
 interface MasterSurat {
@@ -58,14 +58,21 @@ export default function StaffLoket({ masterSurat, wargaList }: Props) {
     const [submitting, setSubmitting] = useState(false);
 
     async function cariNik() {
-        if (nik.length !== 16) { setNikError('NIK harus 16 digit.'); return; }
+        if (nik.length !== 16) {
+ setNikError('NIK harus 16 digit.');
+
+ return; 
+}
+
         setNikError(null);
         setSearching(true);
+
         try {
             const res = await fetch(`/staff/loket/cari-nik?nik=${nik}`, {
                 headers: { 'X-Requested-With': 'XMLHttpRequest', Accept: 'application/json' },
             });
             const json = await res.json();
+
             if (res.ok) {
                 setWarga(json.data);
             } else {
@@ -105,7 +112,11 @@ export default function StaffLoket({ masterSurat, wargaList }: Props) {
 
     const filteredWarga = useMemo(() => {
         const q = listSearch.toLowerCase();
-        if (!q) return wargaList;
+
+        if (!q) {
+return wargaList;
+}
+
         return wargaList.filter(w =>
             w.name.toLowerCase().includes(q) ||
             w.nik.includes(q)
@@ -140,7 +151,9 @@ export default function StaffLoket({ masterSurat, wargaList }: Props) {
                             {/* Tab mode */}
                             <div className="flex border-b">
                                 <button
-                                    onClick={() => { setMode('nik'); clearWarga(); }}
+                                    onClick={() => {
+ setMode('nik'); clearWarga(); 
+}}
                                     className={`flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
                                         mode === 'nik'
                                             ? 'border-b-2 border-teal-600 text-teal-600'
@@ -150,7 +163,9 @@ export default function StaffLoket({ masterSurat, wargaList }: Props) {
                                     <IdCard className="h-4 w-4" /> Cari NIK
                                 </button>
                                 <button
-                                    onClick={() => { setMode('list'); clearWarga(); }}
+                                    onClick={() => {
+ setMode('list'); clearWarga(); 
+}}
                                     className={`flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
                                         mode === 'list'
                                             ? 'border-b-2 border-teal-600 text-teal-600'
@@ -190,7 +205,9 @@ export default function StaffLoket({ masterSurat, wargaList }: Props) {
                                                         <Input
                                                             ref={nikRef}
                                                             value={nik}
-                                                            onChange={e => { setNik(e.target.value.replace(/\D/g, '').slice(0, 16)); setNikError(null); }}
+                                                            onChange={e => {
+ setNik(e.target.value.replace(/\D/g, '').slice(0, 16)); setNikError(null); 
+}}
                                                             onKeyDown={e => e.key === 'Enter' && cariNik()}
                                                             placeholder="Masukkan 16 digit NIK..."
                                                             className="pl-9 font-mono"

@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Search, Calendar, Newspaper, Megaphone } from 'lucide-react';
+import { Search, Calendar, Newspaper } from 'lucide-react';
 import { useState } from 'react';
 import PublicLayout from '@/layouts/public-layout';
 
@@ -30,13 +30,18 @@ interface Props {
 }
 
 const stripHtml = (html: string) => {
-    if (!html) return '';
+    if (!html) {
+return '';
+}
+
     const doc = html.replace(/<[^>]*>/g, ' ');
+
     return doc.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 };
 
 const getExcerpt = (html: string, length = 120) => {
     const plain = stripHtml(html);
+
     return plain.length > length ? plain.substring(0, length) + '...' : plain;
 };
 
@@ -45,6 +50,7 @@ const getReadTime = (html: string) => {
     const plain = stripHtml(html);
     const words = plain.split(/\s+/).length;
     const minutes = Math.ceil(words / 200); // Rata-rata 200 kata per menit
+
     return minutes;
 };
 
@@ -155,7 +161,9 @@ export default function InformasiIndex({ konten, featured, filters }: Props) {
                         </div>
 
                         {/* Search Input */}
-                        <form onSubmit={e => { e.preventDefault(); applyFilter({ search }); }} className="flex gap-2 w-full lg:w-auto">
+                        <form onSubmit={e => {
+ e.preventDefault(); applyFilter({ search }); 
+}} className="flex gap-2 w-full lg:w-auto">
                             <div className="relative w-full lg:w-80">
                                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                                 <input

@@ -1,10 +1,10 @@
 import { Head, router, usePage } from '@inertiajs/react';
 import { Building2, ImageIcon, Save, Settings2, UserCheck, FileText } from 'lucide-react';
 import { useRef, useState } from 'react';
+import { RichEditor } from '@/components/rich-editor';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { RichEditor } from '@/components/rich-editor';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -50,8 +50,14 @@ function KopPreview({ form }: { form: Settings }) {
     const kodePos   = form.kop_kode_pos ?? '';
 
     let alamatLine = alamat;
-    if (telepon) alamatLine += '  Telp: ' + telepon;
-    if (kodePos)  alamatLine += '  Kode Pos ' + kodePos;
+
+    if (telepon) {
+alamatLine += '  Telp: ' + telepon;
+}
+
+    if (kodePos)  {
+alamatLine += '  Kode Pos ' + kodePos;
+}
 
     return (
         <div
@@ -67,7 +73,9 @@ function KopPreview({ form }: { form: Settings }) {
                                     src={`/storage/${form.kop_logo_path}`}
                                     alt="Logo"
                                     className="mx-auto h-14 w-14 object-contain"
-                                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                                    onError={(e) => {
+ (e.target as HTMLImageElement).style.display = 'none'; 
+}}
                                 />
                             ) : (
                                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-dashed border-gray-300 bg-gray-50 text-[9px] text-gray-400">
@@ -113,6 +121,7 @@ export default function PengaturanPage() {
                 fd.append(k as string, form[k] ?? '');
             }
         });
+
         if (logoRef.current?.files?.[0]) {
             fd.append('kop_logo', logoRef.current.files[0]);
         }
@@ -349,7 +358,9 @@ export default function PengaturanPage() {
                                                 src={`/storage/${form.kop_logo_path}`}
                                                 alt="Logo"
                                                 className="h-16 w-16 object-contain"
-                                                onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-kab-subang.png'; }}
+                                                onError={(e) => {
+ (e.target as HTMLImageElement).src = '/images/logo-kab-subang.png'; 
+}}
                                             />
                                         ) : (
                                             <ImageIcon className="h-8 w-8 text-muted-foreground/40" />

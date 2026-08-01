@@ -325,8 +325,10 @@ function FormPengesahan({ pengajuanId }: { pengajuanId: number }) {
     const handleClick = (action: 'setujui' | 'tolak') => {
         if (konfirmasi !== action) {
             setKonfirmasi(action);
+
             return;
         }
+
         // Second click → submit
         form.setData('action', action);
         setTimeout(() => {

@@ -1,5 +1,5 @@
-import { Head, Link, router } from '@inertiajs/react';
-import { Search, Calendar, Newspaper, Megaphone, Clock, MapPin, ChevronRight, ChevronLeft, Image } from 'lucide-react';
+import { Link, router } from '@inertiajs/react';
+import { Search, Newspaper, Clock, MapPin, ChevronRight, ChevronLeft, Image } from 'lucide-react';
 import { useState } from 'react';
 import PortalLayout from '@/layouts/portal-layout';
 
@@ -35,18 +35,24 @@ interface Props {
 }
 
 const stripHtml = (html: string) => {
-    if (!html) return '';
+    if (!html) {
+return '';
+}
+
     const doc = html.replace(/<[^>]*>/g, ' ');
+
     return doc.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 };
 
 const getExcerpt = (html: string, length = 120) => {
     const plain = stripHtml(html);
+
     return plain.length > length ? plain.substring(0, length) + '...' : plain;
 };
 
 const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
+
     return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
@@ -67,9 +73,11 @@ export default function InformasiIndex({ settings, konten, filters = {}, type, t
 
     const applyFilter = (extra: Record<string, string>) => {
         const nextFilters = { ...filters, ...extra };
+
         if (extra.kategori === 'Semua') {
             delete nextFilters.kategori;
         }
+
         router.get(`/informasi/${type}`, nextFilters, { preserveState: true });
     };
 
@@ -327,6 +335,7 @@ export default function InformasiIndex({ settings, konten, filters = {}, type, t
                                         </button>
                                     );
                                 }
+
                                 if (link.label.includes('Next')) {
                                     return (
                                         <button
@@ -339,6 +348,7 @@ export default function InformasiIndex({ settings, konten, filters = {}, type, t
                                         </button>
                                     );
                                 }
+
                                 return (
                                     <button
                                         key={idx}

@@ -127,8 +127,14 @@ export default function DashboardStaff({ stats, antrian, recent_pengaduan, buku_
     // Filter tab antrian
     const [tab, setTab] = useState<'semua' | 'menunggu' | 'diproses'>('semua');
     const filteredAntrian = antrian.filter(item => {
-        if (tab === 'menunggu')  return item.status === 'menunggu';
-        if (tab === 'diproses')  return item.status === 'disetujui' || item.status === 'siap_diambil';
+        if (tab === 'menunggu')  {
+return item.status === 'menunggu';
+}
+
+        if (tab === 'diproses')  {
+return item.status === 'disetujui' || item.status === 'siap_diambil';
+}
+
         return true;
     });
 

@@ -107,6 +107,7 @@ function StatCard({ title, value, sub, icon, tone = 'teal' }: {
 
 function MiniBarChart({ data }: { data: ChartPoint[] }) {
     const max = Math.max(...data.map(d => d.jumlah), 1);
+
     return (
         <div className="flex items-end gap-2" style={{ height: 120 }}>
             {data.map((d, i) => (
@@ -144,6 +145,7 @@ const STATUS_TONE: Record<string, { bg: string; text: string; dot: string }> = {
 
 function TrendChart({ data }: { data: { label: string; masuk: number; selesai: number }[] }) {
     const max = Math.max(...data.flatMap(d => [d.masuk, d.selesai]), 1);
+
     return (
         <div className="flex items-end gap-3" style={{ height: 140 }}>
             {data.map((d, i) => (
@@ -311,6 +313,7 @@ export default function DashboardKepalaDesa({ stats, menunggu_pengesahan_list, c
                     <div className="grid grid-cols-2 gap-3 p-4 sm:grid-cols-4 xl:grid-cols-7">
                         {status_breakdown.map((s, i) => {
                             const tone = STATUS_TONE[s.tone] ?? STATUS_TONE.teal;
+
                             return (
                                 <div key={i} className={`flex flex-col items-center gap-2 rounded-xl p-3 ${tone.bg}`}>
                                     <div className={`flex h-8 w-8 items-center justify-center rounded-full ${tone.dot} bg-opacity-20`}>

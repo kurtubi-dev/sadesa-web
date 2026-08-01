@@ -1,4 +1,4 @@
-import { Head, router, usePage } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { Star } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -120,6 +120,7 @@ export default function PenilaianLayanan({ ulasan, stats, filter }: Props) {
                                 const pct = stats.total > 0 ? Math.round((val / stats.total) * 100) : 0;
                                 const bintang = parseInt(key.replace('bintang', ''));
                                 const active = filter.rating === String(bintang);
+
                                 return (
                                     <button
                                         key={key}

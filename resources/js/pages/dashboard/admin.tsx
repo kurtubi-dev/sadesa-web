@@ -65,6 +65,7 @@ const AVATAR_COLORS = [
 
 function avatarColor(name: string): string {
     const code = name.charCodeAt(0) % AVATAR_COLORS.length;
+
     return AVATAR_COLORS[code];
 }
 
@@ -97,9 +98,19 @@ const STATUS_CLS: Record<string, string> = {
 // Warna dot di activity feed berdasarkan isi action
 function logDotColor(action: string): string {
     const a = action.toLowerCase();
-    if (a.includes('tolak') || a.includes('hapus') || a.includes('batal')) return 'bg-red-500';
-    if (a.includes('setuju') || a.includes('selesai') || a.includes('verif')) return 'bg-teal-500';
-    if (a.includes('upload') || a.includes('buat') || a.includes('tambah') || a.includes('daftar')) return 'bg-blue-500';
+
+    if (a.includes('tolak') || a.includes('hapus') || a.includes('batal')) {
+return 'bg-red-500';
+}
+
+    if (a.includes('setuju') || a.includes('selesai') || a.includes('verif')) {
+return 'bg-teal-500';
+}
+
+    if (a.includes('upload') || a.includes('buat') || a.includes('tambah') || a.includes('daftar')) {
+return 'bg-blue-500';
+}
+
     return 'bg-amber-500';
 }
 

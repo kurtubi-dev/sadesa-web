@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ArrowLeft, Calendar, User, Newspaper, Megaphone, Clock, Share2, MapPin, Download, Check, Eye } from 'lucide-react';
 import { useState } from 'react';
 import PortalLayout from '@/layouts/portal-layout';
@@ -35,14 +35,19 @@ interface Props {
 }
 
 const getReadTime = (html: string) => {
-    if (!html) return 0;
+    if (!html) {
+return 0;
+}
+
     const plain = html.replace(/<[^>]*>/g, ' ');
     const words = plain.split(/\s+/).length;
+
     return Math.ceil(words / 200); // 200 words per minute average
 };
 
 const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
+
     return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 

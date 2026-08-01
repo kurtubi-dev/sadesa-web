@@ -46,14 +46,21 @@ export default function PantauAntrean({ antrean, stats }: Props) {
 
     useEffect(() => {
         const t = setInterval(() => setNow(new Date()), 60_000);
+
         return () => clearInterval(t);
     }, []);
 
     const filtered = filter === 'semua'
         ? antrean
         : antrean.filter(r => {
-            if (filter === 'diproses') return ['diproses', 'diverifikasi'].includes(r.status);
-            if (filter === 'menunggu_pengesahan') return ['menunggu_pengesahan', 'disetujui'].includes(r.status);
+            if (filter === 'diproses') {
+return ['diproses', 'diverifikasi'].includes(r.status);
+}
+
+            if (filter === 'menunggu_pengesahan') {
+return ['menunggu_pengesahan', 'disetujui'].includes(r.status);
+}
+
             return r.status === filter;
         });
 
@@ -146,6 +153,7 @@ export default function PantauAntrean({ antrean, stats }: Props) {
                                         </tr>
                                     ) : filtered.map((r, i) => {
                                         const cfg = STATUS_CFG[r.status] ?? { label: r.status, bg: '#f3f4f6', fg: '#6b7280' };
+
                                         return (
                                             <tr key={r.no_pengajuan} style={{ borderBottom: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
                                                 <td style={{ padding: '12px 16px', fontFamily: 'monospace', fontWeight: 600, color: '#0f172a' }}>{r.no_pengajuan}</td>

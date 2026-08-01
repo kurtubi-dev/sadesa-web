@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 import { AppContent } from '@/components/app-content';
 import { AppShell } from '@/components/app-shell';
 import { AppSidebar } from '@/components/app-sidebar';
@@ -27,13 +27,34 @@ function FlashBanner() {
     const [visible, setVisible] = useState<FlashType | null>(null);
 
     useEffect(() => {
-        if (flash?.error)   { setVisible('error');   return; }
-        if (flash?.success) { setVisible('success'); return; }
-        if (flash?.info)    { setVisible('info');    return; }
-        setVisible(null);
+        const timer = setTimeout(() => {
+            if (flash?.error) {
+                setVisible('error');
+
+                return;
+            }
+
+            if (flash?.success) {
+                setVisible('success');
+
+                return;
+            }
+
+            if (flash?.info) {
+                setVisible('info');
+
+                return;
+            }
+
+            setVisible(null);
+        }, 0);
+
+        return () => clearTimeout(timer);
     }, [flash]);
 
-    if (!visible) return null;
+    if (!visible) {
+return null;
+}
 
     return (
         <div className={`mx-4 mt-4 flex items-start gap-2 rounded-lg border px-4 py-3 text-sm ${FLASH_STYLE[visible]}`}>

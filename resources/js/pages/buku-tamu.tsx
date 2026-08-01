@@ -16,10 +16,14 @@ export default function BukuTamu() {
 
     useEffect(() => {
         if (props.flash?.sukses) {
-            setSubmitted(true);
-            reset();
+            const timer = setTimeout(() => {
+                setSubmitted(true);
+                reset();
+            }, 0);
+
+            return () => clearTimeout(timer);
         }
-    }, [props.flash?.sukses]);
+    }, [props.flash?.sukses, reset]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

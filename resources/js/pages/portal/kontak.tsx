@@ -1,12 +1,11 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { useForm, Link } from '@inertiajs/react';
 import { 
     MapPin, 
     Phone, 
     Mail, 
     CheckCircle, 
     Loader2, 
-    Send,
-    Map
+    Send
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import PortalLayout from '@/layouts/portal-layout';
@@ -37,10 +36,14 @@ export default function Kontak({ settings, flash }: Props) {
 
     useEffect(() => {
         if (flash?.success) {
-            setSubmitted(true);
-            reset();
+            const timer = setTimeout(() => {
+                setSubmitted(true);
+                reset();
+            }, 0);
+
+            return () => clearTimeout(timer);
         }
-    }, [flash?.success]);
+    }, [flash?.success, reset]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -249,4 +252,3 @@ export default function Kontak({ settings, flash }: Props) {
 }
 
 // Sub-components
-import { Link } from '@inertiajs/react';

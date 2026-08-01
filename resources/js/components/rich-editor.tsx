@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import Quill from 'quill';
+import { useEffect, useRef } from 'react';
 import 'quill/dist/quill.snow.css';
 
 interface RichEditorProps {
@@ -13,9 +13,14 @@ export function RichEditor({ value, onChange, placeholder }: RichEditorProps) {
     const quillRef = useRef<Quill | null>(null);
 
     useEffect(() => {
-        if (!editorRef.current) return;
+        if (!editorRef.current) {
+return;
+}
+
         // Avoid double initialization in React 18/19 strict mode
-        if (editorRef.current.querySelector('.ql-editor')) return;
+        if (editorRef.current.querySelector('.ql-editor')) {
+return;
+}
 
         const quill = new Quill(editorRef.current, {
             theme: 'snow',
@@ -40,6 +45,7 @@ export function RichEditor({ value, onChange, placeholder }: RichEditorProps) {
             const html = quill.root.innerHTML;
             onChange(html === '<p><br></p>' ? '' : html);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

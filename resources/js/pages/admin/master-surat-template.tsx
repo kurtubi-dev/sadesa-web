@@ -126,8 +126,14 @@ function KopSuratPreview({ settings }: { settings: KopSettings }) {
     const logoPath  = settings.kop_logo_path;
 
     let alamatLine = alamat;
-    if (telepon) alamatLine += '  Telp: ' + telepon;
-    if (kodePos)  alamatLine += '  Kode Pos ' + kodePos;
+
+    if (telepon) {
+alamatLine += '  Telp: ' + telepon;
+}
+
+    if (kodePos)  {
+alamatLine += '  Kode Pos ' + kodePos;
+}
 
     return (
         <div className="border-b-2 border-black pb-3" style={{ fontFamily: 'inherit' }}>
@@ -140,7 +146,9 @@ function KopSuratPreview({ settings }: { settings: KopSettings }) {
                                     src={`/storage/${logoPath}`}
                                     alt="Logo"
                                     className="mx-auto h-12 w-12 object-contain"
-                                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-kab-subang.png'; }}
+                                    onError={(e) => {
+ (e.target as HTMLImageElement).src = '/images/logo-kab-subang.png'; 
+}}
                                 />
                             ) : (
                                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-dashed border-gray-300 bg-gray-50 text-[8px] text-gray-400">LOGO</div>
@@ -162,6 +170,7 @@ function KopSuratPreview({ settings }: { settings: KopSettings }) {
 
 function ProfileChip({ fieldKey }: { fieldKey: string }) {
     const field = PROFILE_FIELDS.find(f => f.key === fieldKey);
+
     return (
         <span className="inline-flex items-center rounded bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-900/40 dark:text-teal-300">
             {`{${field?.label ?? fieldKey}}`}
@@ -249,7 +258,11 @@ function FieldsTableBlock({
     function moveField(idx: number, dir: -1 | 1) {
         const next = [...fields];
         const swap = idx + dir;
-        if (swap < 0 || swap >= next.length) return;
+
+        if (swap < 0 || swap >= next.length) {
+return;
+}
+
         [next[idx], next[swap]] = [next[swap], next[idx]];
         onChange({ ...block, fields: next });
     }
@@ -668,6 +681,7 @@ function PreviewBlock({ block, settings = {} }: { block: Block; settings?: KopSe
         const kadesNama  = settings.kades_nama     ?? '____________________';
         const kadesJbtn  = settings.kades_jabatan  ?? 'Kepala Desa';
         const kadesNip   = settings.kades_nip      ?? '';
+
         return (
             <div className="mt-8 flex justify-end">
                 <div className="text-center text-sm">
@@ -712,16 +726,7 @@ export default function MasterSuratTemplatePage() {
     const autoSaveRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isDirtyRef = useRef(false);
 
-    useEffect(() => {
-        isDirtyRef.current = true;
-        if (autoSaveRef.current) clearTimeout(autoSaveRef.current);
-        autoSaveRef.current = setTimeout(() => {
-            if (isDirtyRef.current) handleSave(true);
-        }, 30_000);
-        return () => { if (autoSaveRef.current) clearTimeout(autoSaveRef.current); };
-    }, [template]);
-
-    const handleSave = useCallback((silent = false) => {
+    const handleSave = useCallback(() => {
         setSaving(true);
         router.put(
             `/admin/master-surat/${surat.id}/template`,
@@ -737,6 +742,26 @@ export default function MasterSuratTemplatePage() {
             }
         );
     }, [template, surat.id]);
+
+    useEffect(() => {
+        isDirtyRef.current = true;
+
+        if (autoSaveRef.current) {
+            clearTimeout(autoSaveRef.current);
+        }
+
+        autoSaveRef.current = setTimeout(() => {
+            if (isDirtyRef.current) {
+                handleSave();
+            }
+        }, 30_000);
+
+        return () => {
+            if (autoSaveRef.current) {
+                clearTimeout(autoSaveRef.current);
+            } 
+        };
+    }, [template, handleSave]);
 
     function addBlock(type: BlockType) {
         const newBlock: Block = {
@@ -760,7 +785,11 @@ export default function MasterSuratTemplatePage() {
     function moveBlock(idx: number, dir: -1 | 1) {
         const next = [...template.blocks];
         const swap = idx + dir;
-        if (swap < 0 || swap >= next.length) return;
+
+        if (swap < 0 || swap >= next.length) {
+return;
+}
+
         [next[idx], next[swap]] = [next[swap], next[idx]];
         setTemplate(t => ({ ...t, blocks: next }));
     }
@@ -919,18 +948,23 @@ export default function MasterSuratTemplatePage() {
                             if (block.type === 'paragraph') {
                                 return <ParagraphBlock {...props} block={block} onChange={b => updateBlock(block.id, b)} />;
                             }
+
                             if (block.type === 'fields_table') {
                                 return <FieldsTableBlock {...props} block={block} onChange={b => updateBlock(block.id, b)} />;
                             }
+
                             if (block.type === 'alasan') {
                                 return <AlasanBlock {...props} block={block} onChange={b => updateBlock(block.id, b)} />;
                             }
+
                             if (block.type === 'signature') {
                                 return <SignatureBlock {...props} />;
                             }
+
                             if (block.type === 'spacer') {
                                 return <SpacerBlock {...props} />;
                             }
+
                             return null;
                         })}
                     </div>

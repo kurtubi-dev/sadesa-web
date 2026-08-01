@@ -95,7 +95,9 @@ function FormUbahStatus({ pengaduanId, currentStatus }: { pengaduanId: number; c
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         patch(`/staff/pengaduan/${pengaduanId}/status`, {
-            onSuccess: () => { reset(); setOpen(false); },
+            onSuccess: () => {
+ reset(); setOpen(false); 
+},
         });
     };
 
@@ -238,6 +240,7 @@ export default function StaffPengaduanDetail({ pengaduan }: Props) {
                                     {pengaduan.tanggapan.map(t => {
                                         const isOfficer = t.user?.role !== 'warga';
                                         const isSystem = t.isi_tanggapan?.startsWith('[Status');
+
                                         return (
                                             <div key={t.id} className={`rounded-lg p-3 ${
                                                 isSystem
