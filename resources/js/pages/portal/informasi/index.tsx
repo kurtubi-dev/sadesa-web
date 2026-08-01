@@ -29,7 +29,7 @@ interface Paginator<T> {
 interface Props {
     settings: any;
     konten: Paginator<KontenItem>;
-    filters: { kategori?: string; search?: string };
+    filters?: { kategori?: string; search?: string };
     type: 'berita' | 'pengumuman' | 'agenda' | 'galeri';
     title: string;
 }
@@ -50,9 +50,9 @@ const formatDate = (dateStr: string) => {
     return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
-export default function InformasiIndex({ settings, konten, filters, type, title }: Props) {
-    const [search, setSearch] = useState(filters.search ?? '');
-    const [selectedKategori, setSelectedKategori] = useState(filters.kategori ?? 'Semua');
+export default function InformasiIndex({ settings, konten, filters = {}, type, title }: Props) {
+    const [search, setSearch] = useState(filters?.search ?? '');
+    const [selectedKategori, setSelectedKategori] = useState(filters?.kategori ?? 'Semua');
 
     const categories = [
         'Semua',
