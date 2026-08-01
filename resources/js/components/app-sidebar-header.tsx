@@ -78,7 +78,7 @@ function NotificationBell({ role }: { role: string }) {
         }
 
         fetchNotifs();
-        const interval = setInterval(fetchNotifs, 30_000);
+        const interval = setInterval(fetchNotifs, 300_000);
         return () => clearInterval(interval);
     }, [role]);
 
