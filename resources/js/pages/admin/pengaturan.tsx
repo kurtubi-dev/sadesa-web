@@ -127,7 +127,7 @@ export default function PengaturanPage() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Pengaturan Desa | SADESA" />
 
-            <div className="mx-auto max-w-5xl p-6 pb-12">
+            <div className="flex flex-col gap-6 p-6">
 
                 {/* Header */}
                 <div className="mb-6 flex items-center gap-3">

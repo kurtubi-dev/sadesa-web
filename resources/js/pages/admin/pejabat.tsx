@@ -296,7 +296,7 @@ export default function AdminPejabat({ pejabat, filters, flash }: Props) {
                 />
             )}
 
-            <div className="mx-auto max-w-6xl p-6 pb-12">
+            <div className="flex flex-col gap-6 p-6">
                 
                 {/* Header */}
                 <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
